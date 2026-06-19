@@ -1,0 +1,13 @@
+{
+    "id": "INC-12345",
+    "type": "accident",
+    "severity": "high",
+    "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "zone": "Downtown Corridors"
+    },
+    "timestamp": "2026-06-17T15:00:00Z",
+    "reported_by": "police_dispatch",
+    "description": "Multi-vehicle collision blocking two lanes."
+}

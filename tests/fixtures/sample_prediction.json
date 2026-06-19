@@ -1,0 +1,11 @@
+{
+    "incident_id": "INC-12345",
+    "predictions": {
+        "clearance_time_mins": 45,
+        "congestion_increase_pct": 32.5,
+        "secondary_accident_risk": 0.85
+    },
+    "gori_score": 88.5,
+    "confidence": 0.92,
+    "timestamp": "2026-06-17T15:01:00Z"
+}

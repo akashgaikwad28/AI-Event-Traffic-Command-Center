@@ -1,0 +1,17 @@
+{
+    "scenario_id": "SCEN-999",
+    "baseline_metrics": {
+        "clearance_time_mins": 45,
+        "congestion_impact_radius_km": 2.5
+    },
+    "optimized_metrics": {
+        "clearance_time_mins": 30,
+        "congestion_impact_radius_km": 1.1
+    },
+    "improvements": {
+        "response_time_reduction_mins": 15,
+        "congestion_reduction_pct": 56.0
+    },
+    "confidence_score": 0.94,
+    "timeline_frames": []
+}

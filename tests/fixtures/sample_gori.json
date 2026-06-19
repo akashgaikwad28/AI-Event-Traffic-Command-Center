@@ -1,0 +1,12 @@
+{
+    "incident_id": "INC-12345",
+    "base_gori": 62.0,
+    "adjusted_gori": 88.5,
+    "risk_level": "CRITICAL",
+    "drivers": {
+        "weather_impact": 12.0,
+        "time_of_day_impact": 8.0,
+        "historical_severity_impact": 6.5
+    },
+    "timestamp": "2026-06-17T15:05:00Z"
+}
