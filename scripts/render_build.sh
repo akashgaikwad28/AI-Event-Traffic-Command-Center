@@ -5,6 +5,13 @@ set -e
 echo "Installing Python dependencies..."
 pip install -r requirements.txt
 
+echo "Configuring writable directories for Render..."
+export TMPDIR="$PWD/tmp"
+mkdir -p "$TMPDIR"
+export DVC_TEMPDIR="$TMPDIR"
+export DVC_GLOBAL_DIR="$TMPDIR"
+
+
 echo "Configuring DVC authentication for DagsHub..."
 # We use the $DAGSHUB_USER_TOKEN securely injected by Render
 dvc remote modify origin --local auth basic
