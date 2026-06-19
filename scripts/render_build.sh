@@ -11,7 +11,11 @@ mkdir -p "$TMPDIR"
 export DVC_TEMPDIR="$TMPDIR"
 export XDG_CACHE_HOME="$TMPDIR"
 export XDG_CONFIG_HOME="$TMPDIR"
+export XDG_DATA_HOME="$TMPDIR"
 export DVC_NO_ANALYTICS=true
+export DVC_SYSTEM_CONFIG_DIR="$TMPDIR"
+export DVC_GLOBAL_CONFIG_DIR="$TMPDIR"
+export DVC_SITE_CACHE_DIR="$TMPDIR"
 
 
 echo "Configuring DVC authentication for DagsHub..."
