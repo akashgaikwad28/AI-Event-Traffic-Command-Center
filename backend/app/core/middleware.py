@@ -86,9 +86,13 @@ class CorrelationIdMiddleware:
 
 def setup_cors_middleware(app: FastAPI) -> None:
     import os
-    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
-    origins = [frontend_url] if frontend_url else settings.cors_origins
-    
+
+    # Default to '*' if FRONTEND_URL is not provided for local testing.
+    frontend_url = os.getenv("FRONTEND_URL", "*")
+    origins = (
+        [u.strip() for u in frontend_url.split(",")] if frontend_url != "*" else ["*"]
+    )
+
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,
