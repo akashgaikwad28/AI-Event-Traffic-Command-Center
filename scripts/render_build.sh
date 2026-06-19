@@ -9,7 +9,9 @@ echo "Configuring writable directories for Render..."
 export TMPDIR="$PWD/tmp"
 mkdir -p "$TMPDIR"
 export DVC_TEMPDIR="$TMPDIR"
-export DVC_GLOBAL_DIR="$TMPDIR"
+export XDG_CACHE_HOME="$TMPDIR"
+export XDG_CONFIG_HOME="$TMPDIR"
+export DVC_NO_ANALYTICS=true
 
 
 echo "Configuring DVC authentication for DagsHub..."
