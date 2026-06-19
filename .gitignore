@@ -100,7 +100,7 @@ data/processed/*
 # Common generated artifacts
 *.parquet
 *.csv
-*.json
+data/**/*.json
 *.png
 *.jpg
 *.jpeg
