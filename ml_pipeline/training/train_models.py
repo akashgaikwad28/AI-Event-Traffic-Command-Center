@@ -58,6 +58,13 @@ class ModelTrainer:
         )
         self.tracker.log_param("features", self.features)
 
+        # Log Data Versions
+        logger.info("Logging DVC data versions to MLflow...")
+        if Path("data/raw.dvc").exists():
+            self.tracker.log_artifact("data/raw.dvc")
+        if Path("data/processed.dvc").exists():
+            self.tracker.log_artifact("data/processed.dvc")
+
         # 1. Congestion Model (Regression)
         logger.info("Training Congestion Proxy Model (XGBoost)...")
         y_congestion = df.get("congestion_proxy_score", 0)
