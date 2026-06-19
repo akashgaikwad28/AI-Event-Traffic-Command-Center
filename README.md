@@ -51,6 +51,15 @@ GridWise AI utilizes a decoupled, high-performance architecture.
 
 ---
 
+## 🔬 Enterprise MLOps & Data Versioning
+
+GridWise AI uses **DagsHub** for robust MLflow experiment tracking and **DVC (Data Version Control)** for managing large datasets and trained model artifacts.
+
+- **DagsHub & MLflow**: All model training experiments, metrics, parameters, and artifacts are logged directly to DagsHub's MLflow tracking server. This ensures complete reproducibility and auditability of the AI lifecycle.
+- **DVC**: We use DVC to version our heavy datasets and model binaries. This keeps the Git repository lightweight while ensuring developers always have access to the exact data snapshot used for a specific model version.
+
+---
+
 ## 🚀 Getting Started
 
 Follow these steps to run the GridWise AI Command Center locally.
@@ -72,7 +81,11 @@ Follow these steps to run the GridWise AI Command Center locally.
    pip install -r requirements/base.txt
    ```
    *(Note: The exact path to requirements may vary depending on project structure, standard is `pip install -r requirements.txt` if at root)*
-3. Start the FastAPI server from the project root:
+3. Fetch data and model artifacts using DVC:
+   ```bash
+   dvc pull
+   ```
+4. Start the FastAPI server from the project root:
    ```bash
    python -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload
    ```

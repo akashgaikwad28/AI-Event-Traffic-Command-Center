@@ -24,7 +24,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Virtualenvs
+# Virtualenvs & Secrets
 .venv/
 .env
 .env.*
@@ -33,6 +33,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+secrets/
 
 # Tooling caches
 .mypy_cache/
@@ -112,6 +113,12 @@ data/processed/*
 *.model
 *.pkl
 *.joblib
+
+# DVC explicit tracks
+/.dvc/
+!/.dvc/config
+!/.dvcignore
+!*.dvc
 
 # =========================
 # IDE / OS
