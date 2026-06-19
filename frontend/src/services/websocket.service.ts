@@ -25,8 +25,8 @@ class WebSocketService {
     ) {
       return;
     }
-
-    const url = `ws://localhost:8000/api/v1/stream/ws/${topic}`;
+    const baseUrl = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/api/v1';
+    const url = `${baseUrl}/stream/ws/${topic}`;
     console.log(`Connecting to ${topic} WebSocket: ${url}`);
 
     const socket = new WebSocket(url);

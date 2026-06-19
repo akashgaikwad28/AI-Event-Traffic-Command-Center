@@ -1,6 +1,5 @@
 import { SimulationScenario, SIMULATION_SCENARIOS } from '../constants/scenarios';
-
-const API_BASE = 'http://localhost:8000/api/v1';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
 export interface OptimizationRequest {
   incident_id: string;
