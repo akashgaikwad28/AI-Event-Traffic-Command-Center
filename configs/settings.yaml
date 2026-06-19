@@ -1,0 +1,10 @@
+app:
+  name: "Gridwise AI"
+  version: "0.1.0"
+  description: "GRIDWISE AI Platform"
+  debug: false
+  api_v1_prefix: "/api/v1"
+
+logging:
+  level: "INFO"
+  format: "json"

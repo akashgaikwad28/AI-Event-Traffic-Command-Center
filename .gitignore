@@ -1,0 +1,137 @@
+# =========================
+# Python (Poetry / FastAPI)
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtualenvs
+.venv/
+.env
+.env.*
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Tooling caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Coverage
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Logs
+logs/
+*.log
+
+# Docker
+.docker/
+
+# Alembic / migration artifacts (safe defaults)
+alembic.ini
+
+# =========================
+# Node / React (Vite / TS)
+# =========================
+node_modules/
+
+# Vite / build outputs
+/dist/
+/build/
+/frontend/dist/
+/frontend/build/
+
+# Vite cache
+.vite/
+
+# Turbo / other build tools
+.turbo/
+
+# TypeScript incremental build
+*.tsbuildinfo
+
+# Optional (common) package manager caches
+.npm/
+.yarn/
+.pnpm-debug.log*
+
+# =========================
+# Data / ML artifacts
+# =========================
+# Ignore large intermediate artifacts; keep your committed sample files explicit.
+# Root-level datasets keep existing allowlist behavior.
+datasets/*
+!datasets/sample_*.csv
+!datasets/sample_*.json
+
+data/raw/*
+data/interim/*
+data/processed/*
+
+# Common generated artifacts
+*.parquet
+*.csv
+*.json
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.tif
+*.tiff
+*.ckpt
+*.pt
+*.pth
+*.model
+*.pkl
+*.joblib
+
+# =========================
+# IDE / OS
+# =========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# =========================
+# Misc
+# =========================
+.docker-compose*
+

@@ -1,0 +1,43 @@
+Based on the image **Screenshot 2026-06-16 103412.png**, here is the extracted text structured in a clear, hierarchical manner corresponding to the layout of the announcement:
+
+---
+
+## **Header Section**
+
+* **Brand:** Flipkart
+* **Event Title:** GRIDLOCK HACKATHON
+* **Tagline:** solve . traffic
+
+---
+
+## **Main Announcement Box**
+
+### **Heading**
+
+> **CONGRATULATIONS!**
+
+### **Body Text & Milestones**
+
+The content inside this section is split into four distinct, icon-coded rows:
+
+* **[Checkmark Icon]:** Your team has successfully cleared the **Round 1 ML Challenge** and has been shortlisted for **Round 2 – the Prototype Phase** of Gridlock Hackathon 2.0.
+* **[Trophy Icon]:** This is a significant achievement, and we are excited to see your solution evolve into a working prototype. The **Prototype Phase officially begins today!**
+* **[Lightbulb Icon]:** Review the available problem statements, select the one you wish to solve, and **start building your prototype.**
+* **[Calendar Icon]:** Make sure to submit your prototype **before the deadline.**
+
+---
+
+## **Process Flowchart (Step-by-Step)**
+
+This section outlines the action items in a sequential horizontal layout:
+
+1. **[Document/Magnifying Glass Icon]:** Review the available **problem statements**
+2. **[Target Icon]:** Select the one you wish to **solve**
+3. **[Code/Bracket Icon]:** Start building your **prototype**
+4. **[Cloud Upload Icon]:** Make sure to submit your **prototype before the deadline.**
+
+---
+
+## **Footer Section**
+
+* **Closing Message:** We wish you the very best and look forward to seeing your **innovative solutions** in action!
