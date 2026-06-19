@@ -113,14 +113,7 @@ export const IncidentDetailsDrawer: React.FC = () => {
               Optimization Solutions
             </h4>
 
-            {!plan && !isLoading && (
-              <button
-                onClick={() => generatePlan(selectedIncident.incident_id)}
-                className="text-[10px] font-bold text-brand-primary hover:underline"
-              >
-                Trigger Optimization
-              </button>
-            )}
+            {/* Trigger Optimization button removed for demo stability */}
           </div>
 
           {isLoading ? (
@@ -235,13 +228,7 @@ export const IncidentDetailsDrawer: React.FC = () => {
             </div>
           ) : (
             <div className="bg-dark-bg/60 border border-dark-border rounded-lg p-4 text-center text-xs text-gray-500 italic space-y-2">
-              <p>No operational plan computed yet.</p>
-              <button
-                onClick={() => generatePlan(selectedIncident.incident_id)}
-                className="px-3 py-1.5 rounded bg-brand-primary text-white font-semibold hover:bg-brand-primary/95 transition-colors mt-2"
-              >
-                Compute AI Optimization
-              </button>
+              <p>AI Optimization computation is disabled in this demo environment.</p>
             </div>
           )}
         </div>
