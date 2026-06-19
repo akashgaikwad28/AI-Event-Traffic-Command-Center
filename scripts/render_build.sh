@@ -25,6 +25,6 @@ dvc remote modify origin --local user akash.gaikwad9945
 dvc remote modify origin --local password $DAGSHUB_USER_TOKEN
 
 echo "Pulling machine learning models and datasets from DVC..."
-dvc pull
+dvc pull -r origin
 
 echo "Build complete! Models are ready for inference."
