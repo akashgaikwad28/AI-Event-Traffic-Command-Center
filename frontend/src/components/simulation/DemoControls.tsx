@@ -44,7 +44,7 @@ export const DemoControls: React.FC = () => {
   const handleScenarioRun = async (scen: any) => {
     // 1. Start the simulation with specific coordinates payload
     await startScenario(scen.id, scen.simType, scen.payload);
-    
+
     // Determine dynamic severity
     let severity = 'LOW';
     if (scen.payload.gori > 70) severity = 'CRITICAL';
@@ -87,7 +87,7 @@ export const DemoControls: React.FC = () => {
           </h3>
           <p className="text-xs text-gray-500 font-medium">Trigger real-time scenarios for judging demonstrations.</p>
         </div>
-        
+
         <div className="flex items-center space-x-3">
           <button
             onClick={clearAll}
@@ -121,7 +121,7 @@ export const DemoControls: React.FC = () => {
                 <span className="font-bold text-[11px] text-gray-200 truncate">{scen.name}</span>
               </div>
               <p className="text-[9px] text-gray-400 font-medium leading-relaxed flex-1 mb-2">{scen.desc}</p>
-              
+
               <div className="bg-dark-bg border border-dark-border rounded p-1.5 w-full">
                 <div className="text-[8px] font-mono text-emerald-400">Input Payload:</div>
                 <div className="text-[8px] font-mono text-gray-500 mt-0.5">Lat: {scen.payload.lat}</div>

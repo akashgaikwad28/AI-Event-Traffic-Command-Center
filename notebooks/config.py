@@ -1,12 +1,15 @@
 """
 Shared configuration for GridWise AI notebooks.
 """
+
 from pathlib import Path
 
 # Paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
-RAW_DATA_PATH = DATA_DIR / "Astram event data_anonymized - Astram event data_anonymizedb40ac87.csv"
+RAW_DATA_PATH = (
+    DATA_DIR / "Astram event data_anonymized - Astram event data_anonymizedb40ac87.csv"
+)
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 CLEANED_DATA_PATH = PROCESSED_DATA_DIR / "cleaned_dataset.parquet"
 REPORTS_DIR = BASE_DIR / "reports"

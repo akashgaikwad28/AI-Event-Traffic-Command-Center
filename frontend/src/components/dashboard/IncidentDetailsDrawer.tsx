@@ -32,7 +32,7 @@ export const IncidentDetailsDrawer: React.FC = () => {
         hotspot_recurrence: selectedIncident.gori_score > 70 ? 0.82 : 0.35,
         historical_spread_probability: selectedIncident.gori_score > 70 ? 0.68 : 0.22,
       };
-      
+
       const newPlan = await api.requestOptimization(payload);
       setOperationalPlan(incidentId, newPlan);
     } catch (err) {
@@ -112,7 +112,7 @@ export const IncidentDetailsDrawer: React.FC = () => {
               <BrainCircuit className="w-3.5 h-3.5 text-brand-accent mr-1" />
               Optimization Solutions
             </h4>
-            
+
             {!plan && !isLoading && (
               <button
                 onClick={() => generatePlan(selectedIncident.incident_id)}
@@ -138,7 +138,7 @@ export const IncidentDetailsDrawer: React.FC = () => {
                   <span className="text-xs font-bold text-gray-200">Recommended Dispatch Plan</span>
                 </div>
                 <p className="text-xs text-purple-200 leading-relaxed font-semibold">{plan.recommended_plan}</p>
-                
+
                 {/* Cost efficiency scoring */}
                 <div className="grid grid-cols-4 gap-2 mt-3 pt-3 border-t border-dark-border/40 text-center">
                   <div className="bg-dark-bg/50 border border-dark-border/60 p-1.5 rounded">
@@ -184,14 +184,14 @@ export const IncidentDetailsDrawer: React.FC = () => {
                   <Activity className="w-4 h-4" />
                   <span>Scenario Impact Simulations</span>
                 </div>
-                
+
                 <div className="space-y-2">
                   {Object.entries(plan.predicted_impact || {}).map(([scenario, data]) => {
                     const isWorst = scenario === 'WORST_CASE';
                     const isBest = scenario === 'BEST_CASE';
                     const labelColor = isWorst ? 'text-red-400' : (isBest ? 'text-emerald-400' : 'text-amber-400');
                     const bgClass = isWorst ? 'bg-red-500/5 border-red-500/20' : (isBest ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-amber-500/5 border-amber-500/20');
-                    
+
                     return (
                       <div key={scenario} className={`border rounded p-2 text-xxs flex justify-between items-center ${bgClass}`}>
                         <div>

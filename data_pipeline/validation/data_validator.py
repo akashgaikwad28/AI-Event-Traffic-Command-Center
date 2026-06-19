@@ -1,18 +1,22 @@
-import pandas as pd
 import logging
 
+import pandas as pd
+
 logger = logging.getLogger(__name__)
+
 
 class DataValidator:
     """
     Validates sparse datasets, filters outliers, and enforces schema consistency.
     Crucial for handling real-world noisy traffic incident data.
     """
-    
+
     def __init__(self, config: dict = None):
         self.config = config or {}
-        
-    def validate_coordinates(self, df: pd.DataFrame, lat_col="latitude", lng_col="longitude") -> pd.DataFrame:
+
+    def validate_coordinates(
+        self, df: pd.DataFrame, lat_col="latitude", lng_col="longitude"
+    ) -> pd.DataFrame:
         """
         Filters out invalid GPS coordinates outside the operational bounding box.
         """

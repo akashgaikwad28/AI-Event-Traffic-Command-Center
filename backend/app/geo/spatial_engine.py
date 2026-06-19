@@ -102,7 +102,7 @@ class SpatialEngine:
             distances_rad = dist[0]
 
             results = []
-            for idx, dist_rad in zip(indices, distances_rad):
+            for idx, dist_rad in zip(indices, distances_rad, strict=False):
                 dist_km = dist_rad * EARTH_RADIUS_KM
                 results.append(
                     NearbyEventResult(

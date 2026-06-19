@@ -11,7 +11,7 @@ export const KPIBar: React.FC = () => {
 
   const activeCount = incidents.length;
   const criticalCount = incidents.filter(i => i.gori_score > 70).length;
-  
+
   // Sum officers from generated plans
   const totalOfficers = plans.reduce((sum, p) => sum + (p.resource_plan?.police_officers || 0), 0) || (activeCount * 3);
   const activeDiversions = plans.filter(p => p.diversion_plan?.description).length;

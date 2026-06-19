@@ -49,17 +49,17 @@ export interface VisualSimulationResult {
 interface DemoState {
   activeScenario: string | null;
   isRunning: boolean;
-  
+
   // Phase 12 Visual Simulation
   simulationResult: VisualSimulationResult | null;
   simulationHistory: VisualSimulationResult[];
   playbackFrameIndex: number;
   playbackSpeed: number; // 1, 2, 5, 10
   playbackState: 'PLAYING' | 'PAUSED' | 'STOPPED';
-  
+
   startScenario: (uiId: string, simType: SimulationScenario, payload?: any) => Promise<void>;
   stopScenario: () => void;
-  
+
   runVisualDemo: () => Promise<void>;
   runVisualSimulation: (type: string, params?: any) => Promise<void>;
   setPlaybackState: (state: 'PLAYING' | 'PAUSED' | 'STOPPED') => void;
@@ -71,13 +71,13 @@ interface DemoState {
 export const useDemoStore = create<DemoState>((set, get) => ({
   activeScenario: null,
   isRunning: false,
-  
+
   simulationResult: null,
   simulationHistory: [],
   playbackFrameIndex: 0,
   playbackSpeed: 1,
   playbackState: 'STOPPED',
-  
+
   startScenario: async (uiId: string, simType: SimulationScenario, payload?: any) => {
     set({ isRunning: true, activeScenario: uiId });
     try {
@@ -86,7 +86,7 @@ export const useDemoStore = create<DemoState>((set, get) => ({
       set({ isRunning: false, activeScenario: null });
     }
   },
-  
+
   stopScenario: () => {
     set({ isRunning: false, activeScenario: null });
   },
@@ -95,9 +95,9 @@ export const useDemoStore = create<DemoState>((set, get) => ({
     set({ isRunning: true });
     try {
       const result = await api.runExecutiveDemo();
-      set({ 
-        simulationResult: result, 
-        playbackState: 'PLAYING', 
+      set({
+        simulationResult: result,
+        playbackState: 'PLAYING',
         playbackFrameIndex: 0,
         isRunning: true
       });
@@ -112,9 +112,9 @@ export const useDemoStore = create<DemoState>((set, get) => ({
     set({ isRunning: true });
     try {
       const result = await api.runVisualSimulation(type, params);
-      set({ 
-        simulationResult: result, 
-        playbackState: 'PLAYING', 
+      set({
+        simulationResult: result,
+        playbackState: 'PLAYING',
         playbackFrameIndex: 0,
         isRunning: true
       });

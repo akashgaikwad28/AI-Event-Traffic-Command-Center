@@ -11,8 +11,8 @@ export const useGoriStore = create<GoriState>((set) => ({
   setAvgGori: (score) => set({ avgGori: score }),
   updateGoriFromIncidents: (incidents) => {
     const values = Object.values(incidents);
-    const avg = values.length 
-      ? Math.round(values.reduce((sum, i) => sum + i.gori_score, 0) / values.length) 
+    const avg = values.length
+      ? Math.round(values.reduce((sum, i) => sum + i.gori_score, 0) / values.length)
       : 0;
     set({ avgGori: avg });
   }

@@ -1,4 +1,3 @@
-
 import pandas as pd
 
 from backend.app.geo.spatial_engine import SpatialEngine
@@ -17,7 +16,7 @@ def generate_geo_features(
     if df.empty or "latitude" not in df.columns or "longitude" not in df.columns:
         return df
 
-    coords = list(zip(df["latitude"].values, df["longitude"].values))
+    coords = list(zip(df["latitude"].values, df["longitude"].values, strict=False))
 
     # 1. Cluster density proxy
     # To prevent leakage, a strict implementation would only build tree from past events.

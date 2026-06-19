@@ -93,7 +93,7 @@ export const DashboardPage: React.FC = () => {
                     </span>
                   </div>
                 </div>
-                
+
                 {/* 5-Component Drill-down */}
                 <div className="space-y-2.5 mt-3">
                   {[
@@ -109,7 +109,7 @@ export const DashboardPage: React.FC = () => {
                         <span className={comp.val > 75 ? 'text-red-400' : 'text-gray-300'}>{Math.round(comp.val)}%</span>
                       </div>
                       <div className="w-full bg-dark-bg/80 rounded-full h-1.5 overflow-hidden">
-                        <div 
+                        <div
                           className={`h-1.5 rounded-full transition-all duration-1000 ease-out ${
                             comp.val > 75 ? 'bg-gradient-to-r from-red-500 to-red-400' :
                             comp.val > 50 ? 'bg-gradient-to-r from-amber-500 to-amber-400' :
@@ -141,7 +141,7 @@ export const DashboardPage: React.FC = () => {
           <Compass className="w-4 h-4 text-brand-accent mr-1.5" />
           Active Strategic Operations Summary
         </h3>
-        
+
         {plans.length === 0 ? (
           <div className="text-center py-6 text-gray-500 italic text-xs space-y-1">
             <ShieldCheck className="w-8 h-8 text-gray-600 mx-auto" />

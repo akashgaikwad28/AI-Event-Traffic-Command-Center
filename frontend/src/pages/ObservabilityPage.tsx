@@ -5,7 +5,7 @@ import ReactECharts from 'echarts-for-react';
 
 export const ObservabilityPage: React.FC = () => {
   const isConnected = useWebSocketStore((state) => state.isConnected);
-  
+
   const [metrics, setMetrics] = useState({
     apiLatency: 12,
     modelLatency: 85,
@@ -23,7 +23,7 @@ export const ObservabilityPage: React.FC = () => {
       setMetrics(prev => {
         const newApiLatency = prev.apiLatency + (Math.random() * 4 - 2);
         const newModelLatency = prev.modelLatency + (Math.random() * 10 - 5);
-        
+
         setLatencyHistory(hist => {
           const newHist = [...hist.slice(1), Math.max(5, newApiLatency)];
           return newHist;

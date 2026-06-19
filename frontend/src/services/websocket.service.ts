@@ -35,7 +35,7 @@ class WebSocketService {
       console.log(`Connected to WebSocket topic: ${topic}`);
       this.reconnectAttempts[topic] = 0; // reset
       this.updateConnectionStatus();
-      
+
       // Start heartbeat
       this.pingIntervals[topic] = window.setInterval(() => {
         if (socket.readyState === WebSocket.OPEN) {
@@ -81,7 +81,7 @@ class WebSocketService {
       if (data.event_type === 'INCIDENT_UPDATE' || data.event_type === 'INCIDENT_CREATED') {
         const incidentStore = useIncidentStore.getState();
         incidentStore.addIncident(data.payload);
-        
+
         // Also update GORI since incidents changed
         useGoriStore.getState().updateGoriFromIncidents(incidentStore.incidents);
       }

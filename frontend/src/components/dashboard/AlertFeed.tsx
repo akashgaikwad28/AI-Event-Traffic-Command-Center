@@ -35,7 +35,7 @@ export const AlertFeed: React.FC = () => {
             >
               {/* Glowing vertical bar */}
               <div className="absolute top-0 bottom-0 left-0 w-1 bg-red-650 animate-pulse"></div>
-              
+
               <div className="flex items-start justify-between">
                 <div className="flex items-center space-x-2">
                   <span className="text-[10px] font-bold text-alert-high bg-alert-high/10 border border-alert-high/25 px-1.5 py-0.2 rounded">
@@ -45,9 +45,9 @@ export const AlertFeed: React.FC = () => {
                 </div>
                 <span className="text-[9px] text-gray-500">Just Now</span>
               </div>
-              
+
               <p className="text-xs text-gray-200 font-semibold mt-1.5 leading-snug">{alert.message}</p>
-              
+
               {alert.recommendation && (
                 <div className="mt-2 pt-2 border-t border-dark-border/40 text-xxs text-gray-400 flex items-start space-x-1">
                   <ShieldAlert className="w-3.5 h-3.5 text-alert-warning shrink-0 mt-0.5" />

@@ -81,10 +81,10 @@ export const CommandMap: React.FC = () => {
           const isSelected = incident.incident_id === selectedId;
           const isCritical = incident.gori_score > 70;
           const plan = operationalPlans[incident.incident_id];
-          
+
           // Color based on GORI score severity
           const markerColor = isCritical ? '#ef4444' : (incident.gori_score > 45 ? '#f59e0b' : '#3b82f6');
-          
+
           return (
             <React.Fragment key={incident.incident_id}>
               {/* Hotspot congestion spread radius */}

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from backend.app.core.constants import DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE
 

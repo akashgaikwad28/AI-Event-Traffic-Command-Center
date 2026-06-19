@@ -42,9 +42,9 @@ sequenceDiagram
 ## 2. Key Differentiators
 
 ### Coordinate-First Spatial Intelligence
-Traditional traffic systems rely on static "zones" or "junction names". Our exploratory analysis revealed this categorical data was severely sparse and error-prone. 
+Traditional traffic systems rely on static "zones" or "junction names". Our exploratory analysis revealed this categorical data was severely sparse and error-prone.
 * **Our Solution:** We discard static zones. Our `data_pipeline/spatial_clustering/` module uses **DBSCAN** algorithms on raw latitude/longitude coordinates to dynamically reconstruct traffic hotspots based on historical densities.
 
 ### Post-Event Learning
-We directly solved the hackathon challenge requirement: *"No post-event learning system"*. 
+We directly solved the hackathon challenge requirement: *"No post-event learning system"*.
 * **Our Solution:** The `ml_pipeline/post_event_learning/` module evaluates the actual congestion reduction achieved by the deployed officers against the ML's prediction. If the prediction error exceeds 15%, the system triggers an automatic retraining hook to adapt to changing urban conditions.

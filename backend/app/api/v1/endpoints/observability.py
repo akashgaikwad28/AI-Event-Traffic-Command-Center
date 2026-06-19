@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter
 
 from backend.app.observability.dto.health_models import HealthResponse

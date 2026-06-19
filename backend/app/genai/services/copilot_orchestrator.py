@@ -50,9 +50,9 @@ class CopilotOrchestrator:
         Mode: {mode}
         Query: {query}
         Context: {context}
-        
-        CRITICAL INSTRUCTION: You are GridWise AI, a tactical AI orchestrator. 
-        You MUST base your entire answer ONLY on the provided Context. 
+
+        CRITICAL INSTRUCTION: You are GridWise AI, a tactical AI orchestrator.
+        You MUST base your entire answer ONLY on the provided Context.
         DO NOT invent, hallucinate, or assume any statistics, resource numbers, or geographic locations that are not explicitly present in the Context.
         If the Context does not contain the answer, simply state: 'Data unavailable in current ML optimization context.'
         """

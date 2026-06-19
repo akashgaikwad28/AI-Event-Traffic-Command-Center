@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { useDemoStore } from '../../store/demo.store';
 
 export const SimulationTimeline: React.FC = () => {
-  const { 
-    simulationResult, 
-    playbackState, 
-    playbackSpeed, 
+  const {
+    simulationResult,
+    playbackState,
+    playbackSpeed,
     playbackFrameIndex,
     setPlaybackState,
     setPlaybackSpeed,
@@ -47,7 +47,7 @@ export const SimulationTimeline: React.FC = () => {
           <span className="text-slate-400 text-sm">T+{currentFrame.time_offset_mins} mins</span>
           <div className="flex bg-slate-900 rounded p-1 gap-1">
             {[1, 2, 5, 10].map(s => (
-              <button 
+              <button
                 key={s}
                 className={`px-2 py-1 text-xs rounded transition-colors ${playbackSpeed === s ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700'}`}
                 onClick={() => setPlaybackSpeed(s)}
@@ -58,9 +58,9 @@ export const SimulationTimeline: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="flex items-center gap-4">
-        <button 
+        <button
           onClick={() => setPlaybackState(playbackState === 'PLAYING' ? 'PAUSED' : 'PLAYING')}
           className="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
         >
@@ -70,7 +70,7 @@ export const SimulationTimeline: React.FC = () => {
              <svg className="w-4 h-4 fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           )}
         </button>
-        <button 
+        <button
           onClick={() => { setPlaybackFrame(0); setPlaybackState('STOPPED'); }}
           className="p-2 text-slate-400 hover:text-white transition-colors"
         >
@@ -78,10 +78,10 @@ export const SimulationTimeline: React.FC = () => {
         </button>
 
         <div className="flex-1 relative mx-4">
-          <input 
-            type="range" 
-            min={0} 
-            max={maxFrames - 1} 
+          <input
+            type="range"
+            min={0}
+            max={maxFrames - 1}
             value={playbackFrameIndex}
             onChange={(e) => {
               setPlaybackState('PAUSED');

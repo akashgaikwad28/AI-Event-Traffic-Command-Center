@@ -33,7 +33,7 @@ export const SimulationPage: React.FC = () => {
                 <BrainCircuit className="w-6 h-6 mr-3" />
                 AI Optimization Plan Executed
               </h3>
-              
+
               {/* Premium Before/After Visuals */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 {/* Before */}
@@ -52,7 +52,7 @@ export const SimulationPage: React.FC = () => {
                   </div>
                   <p className="text-sm text-red-400/80 mt-4 font-medium">Critical traffic gridlock detected. Unmitigated cascading failure imminent.</p>
                 </div>
-                
+
                 {/* After */}
                 <div className="bg-[#121626] border border-brand-accent/40 p-6 rounded-xl relative overflow-hidden group shadow-[0_0_30px_rgba(45,212,191,0.05)]">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/20 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 group-hover:bg-brand-accent/30 transition-all duration-700"></div>
@@ -81,7 +81,7 @@ export const SimulationPage: React.FC = () => {
                   <h4 className="text-xs font-bold text-gray-300 uppercase tracking-wider mb-3">Active Diversion Route</h4>
                   <p className="text-sm text-emerald-100 font-mono leading-relaxed">{demoPlan.diversion_plan?.description || 'Rerouting major arterials to bypass incident zone.'}</p>
                 </div>
-                
+
                 <div className="bg-dark-bg/50 p-5 rounded-xl border border-dark-border/50 relative overflow-hidden flex flex-col justify-center">
                   <div className="absolute top-0 left-0 w-1 h-full bg-brand-primary/50"></div>
                   <div className="flex items-center space-x-6">

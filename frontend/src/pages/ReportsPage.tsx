@@ -18,7 +18,7 @@ export const ReportsPage: React.FC = () => {
     setIsExporting(true);
     setTimeout(() => {
       setIsExporting(false);
-      
+
       const reportPayload = {
         generated_at: new Date().toISOString(),
         report_type: activeReport,
@@ -87,7 +87,7 @@ export const ReportsPage: React.FC = () => {
           </p>
         </div>
       </div>
-      
+
       <div className="mt-6 border-t border-dark-border pt-6">
         <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Top Active Priorities</h4>
         <div className="space-y-3">
@@ -118,7 +118,7 @@ export const ReportsPage: React.FC = () => {
           <p className="text-sm text-gray-500 font-medium mt-1">Generated tactical summaries and official operational documents.</p>
         </div>
         <div className="mt-4 md:mt-0">
-          <button 
+          <button
             onClick={handleExport}
             disabled={isExporting}
             className="flex items-center space-x-2 px-4 py-2 bg-brand-primary/10 border border-brand-primary/50 text-brand-primary rounded hover:bg-brand-primary/20 transition-all font-bold text-sm tracking-wide"
@@ -132,21 +132,21 @@ export const ReportsPage: React.FC = () => {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Sidebar Nav */}
         <div className="lg:w-64 flex-shrink-0 space-y-2">
-          <button 
+          <button
             onClick={() => setActiveReport('EXECUTIVE')}
             className={`w-full flex items-center p-3 rounded-lg border text-left transition-colors ${activeReport === 'EXECUTIVE' ? 'bg-dark-card border-brand-accent/50 text-brand-accent' : 'bg-transparent border-transparent text-gray-400 hover:bg-dark-bg/80'}`}
           >
             <ShieldCheck className="w-4 h-4 mr-3" />
             <span className="text-sm font-bold tracking-wide">Executive Summary</span>
           </button>
-          <button 
+          <button
             onClick={() => setActiveReport('SHIFT_HANDOVER')}
             className={`w-full flex items-center p-3 rounded-lg border text-left transition-colors ${activeReport === 'SHIFT_HANDOVER' ? 'bg-dark-card border-brand-accent/50 text-brand-accent' : 'bg-transparent border-transparent text-gray-400 hover:bg-dark-bg/80'}`}
           >
             <Clock className="w-4 h-4 mr-3" />
             <span className="text-sm font-bold tracking-wide">Shift Handover</span>
           </button>
-          <button 
+          <button
             onClick={() => setActiveReport('DAILY_OPS')}
             className={`w-full flex items-center p-3 rounded-lg border text-left transition-colors ${activeReport === 'DAILY_OPS' ? 'bg-dark-card border-brand-accent/50 text-brand-accent' : 'bg-transparent border-transparent text-gray-400 hover:bg-dark-bg/80'}`}
           >
@@ -161,7 +161,7 @@ export const ReportsPage: React.FC = () => {
           <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none overflow-hidden">
             <span className="text-[150px] font-black uppercase tracking-tighter rotate-[-45deg]">CONFIDENTIAL</span>
           </div>
-          
+
           <div className="relative z-10">
             {activeReport === 'EXECUTIVE' && renderExecutiveReport()}
             {activeReport === 'SHIFT_HANDOVER' && (

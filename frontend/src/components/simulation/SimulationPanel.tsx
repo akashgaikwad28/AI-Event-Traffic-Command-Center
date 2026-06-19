@@ -26,7 +26,7 @@ export const SimulationPanel: React.FC = () => {
           RUN GRIDWISE STORY
         </button>
       </div>
-      
+
       <div className="p-4 flex-1 overflow-y-auto">
         {!simulationResult ? (
           <div className="max-w-2xl mx-auto mt-8">
@@ -42,14 +42,14 @@ export const SimulationPanel: React.FC = () => {
           <div className="space-y-4 max-w-5xl mx-auto">
             <div className="flex justify-between items-center">
               <span className="text-slate-400">Current Scenario: <strong className="text-white uppercase">{simulationResult.scenario_type}</strong></span>
-              <button 
+              <button
                 onClick={() => useDemoStore.setState({ simulationResult: null })}
                 className="text-sm text-slate-400 hover:text-white underline"
               >
                 Back to Scenarios
               </button>
             </div>
-            
+
             <SimulationTimeline />
             <ImpactComparison />
             <CascadingRiskPanel />

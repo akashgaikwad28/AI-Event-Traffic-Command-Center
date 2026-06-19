@@ -14,7 +14,7 @@ Target leakage occurs when a model is trained using information that will **not*
 ### `modified_datetime`
 - **Leakage Severity:** HIGH
 - **Why Dangerous:** The last modification time usually corresponds to when the ticket was resolved or updated during resolution.
-- **Real-World Deployment Consequence:** The timestamp will act as a proxy for `closed_datetime`. The model will learn to subtract `start_datetime` from `modified_datetime` to perfectly "predict" the duration. 
+- **Real-World Deployment Consequence:** The timestamp will act as a proxy for `closed_datetime`. The model will learn to subtract `start_datetime` from `modified_datetime` to perfectly "predict" the duration.
 - **Mitigation Strategy:** **DROP entirely** before training.
 
 ### `closed_datetime` / `resolved_datetime`

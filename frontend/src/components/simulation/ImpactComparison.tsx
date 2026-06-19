@@ -20,49 +20,49 @@ export const ImpactComparison: React.FC = () => {
   return (
     <div className="space-y-4">
       <h3 className="text-xl font-bold text-white mb-4 border-b border-slate-700 pb-2">Business Impact Analysis</h3>
-      
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricCard 
-          label="Response Time Reduced" 
-          value={improvements.response_time_reduction_mins} 
-          unit="m" 
-          isPositive={true} 
+        <MetricCard
+          label="Response Time Reduced"
+          value={improvements.response_time_reduction_mins}
+          unit="m"
+          isPositive={true}
         />
-        <MetricCard 
-          label="Congestion Drop" 
-          value={improvements.congestion_reduction_pct} 
-          unit="%" 
-          isPositive={true} 
+        <MetricCard
+          label="Congestion Drop"
+          value={improvements.congestion_reduction_pct}
+          unit="%"
+          isPositive={true}
         />
-        <MetricCard 
-          label="GORI Improvement" 
-          value={improvements.gori_reduction} 
-          unit=" pts" 
-          isPositive={true} 
+        <MetricCard
+          label="GORI Improvement"
+          value={improvements.gori_reduction}
+          unit=" pts"
+          isPositive={true}
         />
-        <MetricCard 
-          label="Spread Prevented" 
-          value={improvements.spread_reduction_radius} 
-          unit="m" 
-          isPositive={true} 
+        <MetricCard
+          label="Spread Prevented"
+          value={improvements.spread_reduction_radius}
+          unit="m"
+          isPositive={true}
         />
-        <MetricCard 
-          label="Officer Efficiency" 
-          value={`+${improvements.officer_efficiency_gain_pct}`} 
-          unit="%" 
-          isPositive={true} 
+        <MetricCard
+          label="Officer Efficiency"
+          value={`+${improvements.officer_efficiency_gain_pct}`}
+          unit="%"
+          isPositive={true}
         />
-        <MetricCard 
-          label="Diversion Effectiveness" 
-          value={improvements.diversion_effectiveness_score} 
-          unit="/100" 
-          isPositive={false} 
+        <MetricCard
+          label="Diversion Effectiveness"
+          value={improvements.diversion_effectiveness_score}
+          unit="/100"
+          isPositive={false}
         />
-        <MetricCard 
-          label="Citizens Saved" 
-          value={`~${improvements.estimated_citizens_impacted}`} 
-          unit="" 
-          isPositive={true} 
+        <MetricCard
+          label="Citizens Saved"
+          value={`~${improvements.estimated_citizens_impacted}`}
+          unit=""
+          isPositive={true}
         />
       </div>
 

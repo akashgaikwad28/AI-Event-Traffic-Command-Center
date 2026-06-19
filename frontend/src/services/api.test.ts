@@ -25,7 +25,7 @@ describe('API Service - Simulation Scenarios', () => {
 
   it('should call fetch with a valid enum scenario', async () => {
     await api.triggerSimulation(SIMULATION_SCENARIOS.ACCIDENT_CASCADE);
-    
+
     expect(global.fetch).toHaveBeenCalledWith(
       expect.stringContaining('/stream/start-simulation/ACCIDENT_CASCADE'),
       expect.objectContaining({ method: 'POST' })
@@ -34,7 +34,7 @@ describe('API Service - Simulation Scenarios', () => {
 
   it('should map LIVE_REPLAY correctly without errors', async () => {
     await api.triggerSimulation(SIMULATION_SCENARIOS.LIVE_REPLAY);
-    
+
     expect(global.fetch).toHaveBeenCalledWith(
       expect.stringContaining('/stream/start-simulation/LIVE_REPLAY'),
       expect.objectContaining({ method: 'POST' })

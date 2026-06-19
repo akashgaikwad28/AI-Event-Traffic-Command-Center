@@ -24,9 +24,9 @@ const barricadeIcon = new L.Icon({
 
 export const MapSimulationOverlay: React.FC = () => {
   const { simulationResult, playbackFrameIndex } = useDemoStore();
-  
+
   if (!simulationResult) return null;
-  
+
   const frame = simulationResult.optimized_state.timeline_frames[playbackFrameIndex];
   if (!frame) return null;
 
@@ -51,11 +51,11 @@ export const MapSimulationOverlay: React.FC = () => {
             </Circle>
           );
         }
-        
+
         let icon = incidentIcon;
         if (entity.type === 'unit') icon = unitIcon;
         if (entity.type === 'barricade') icon = barricadeIcon;
-        
+
         if (['incident', 'unit', 'barricade'].includes(entity.type)) {
           return (
             <Marker key={entity.id} position={[entity.lat, entity.lng]} icon={icon}>
@@ -63,17 +63,17 @@ export const MapSimulationOverlay: React.FC = () => {
             </Marker>
           );
         }
-        
+
         if (entity.type === 'diversion' && entity.metadata?.points) {
            return (
-             <Polyline 
+             <Polyline
                key={entity.id}
                positions={entity.metadata.points}
                pathOptions={{ color: '#3b82f6', weight: 4, dashArray: '10, 10', className: 'animate-[dash_1s_linear_infinite]' }}
              />
            );
         }
-        
+
         return null;
       })}
     </>

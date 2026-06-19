@@ -33,14 +33,14 @@ export const CascadingRiskPanel: React.FC = () => {
           {currentFrame.cascading_risk} RISK
         </span>
       </div>
-      
+
       <div className="flex justify-between items-center relative">
         <div className="absolute left-0 top-1/2 w-full h-1 bg-slate-700 -z-0 -translate-y-1/2"></div>
-        <div 
+        <div
           className="absolute left-0 top-1/2 h-1 bg-blue-500 -z-0 -translate-y-1/2 transition-all duration-300"
           style={{ width: `${(playbackFrameIndex / (simulationResult.optimized_state.timeline_frames.length - 1)) * 100}%` }}
         ></div>
-        
+
         {steps.map((step, idx) => (
           <div key={idx} className="flex flex-col items-center z-10">
             <div className={`w-4 h-4 rounded-full border-2 transition-colors duration-300 ${step.active ? 'bg-blue-500 border-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.8)]' : 'bg-slate-800 border-slate-600'}`}></div>

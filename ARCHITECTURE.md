@@ -1,6 +1,6 @@
 # GridWise AI Platform Architecture
 
-GridWise AI is not simply a set of machine learning models. It is a comprehensive **Coordinate-First Operational Intelligence System** designed to bridge the gap between raw spatial data and real-time operational decision-making. 
+GridWise AI is not simply a set of machine learning models. It is a comprehensive **Coordinate-First Operational Intelligence System** designed to bridge the gap between raw spatial data and real-time operational decision-making.
 
 The following architecture diagram illustrates the end-to-end intelligence lifecycle, demonstrating how raw traffic and event coordinates are seamlessly transformed into dynamic optimizations and learning loops.
 
@@ -54,22 +54,22 @@ flowchart TD
     A1 --> B
     A2 --> B
     A3 -.-> B
-    
+
     B --> C
     C --> D
-    
+
     D --> E1
     D --> E2
     D --> E3
-    
+
     E1 --> F
     E2 --> F
     E3 --> F
-    
+
     F --> G
     G --> H
     G --> I
-    
+
     H --> J
     I --> J
     J -. "Retrains Models" .-> D

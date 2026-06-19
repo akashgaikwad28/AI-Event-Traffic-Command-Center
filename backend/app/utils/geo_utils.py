@@ -140,8 +140,8 @@ def centroid_calculation(
     if total_weight == 0:
         return 0.0, 0.0
 
-    weighted_lat = sum(c[0] * w for c, w in zip(coords, weights))
-    weighted_lon = sum(c[1] * w for c, w in zip(coords, weights))
+    weighted_lat = sum(c[0] * w for c, w in zip(coords, weights, strict=False))
+    weighted_lon = sum(c[1] * w for c, w in zip(coords, weights, strict=False))
 
     return weighted_lat / total_weight, weighted_lon / total_weight
 

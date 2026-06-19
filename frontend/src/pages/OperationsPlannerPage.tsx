@@ -260,7 +260,7 @@ export const OperationsPlannerPage: React.FC = () => {
                           const caseName = rawCaseName.toUpperCase();
                           const isWorst = caseName === 'WORST_CASE';
                           const isBest = caseName === 'BEST_CASE';
-                          
+
                           const labelColor = isWorst ? 'text-red-400' : (isBest ? 'text-emerald-400' : 'text-amber-400');
                           const borderClass = isWorst ? 'border-red-500/30 bg-red-500/5 hover:bg-red-500/10' : (isBest ? 'border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10' : 'border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10');
 

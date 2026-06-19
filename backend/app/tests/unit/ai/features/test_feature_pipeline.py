@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 import pandas as pd
 import pytest
+
 from backend.app.ai.pipelines.inference_pipeline import InferencePipeline
 from backend.app.ai.pipelines.training_pipeline import TrainingPipeline
 

@@ -80,7 +80,7 @@ export const GlobalToastAlerts: React.FC = () => {
       // Simple heuristic: if it's within the last 5 seconds, show it
       const now = new Date().getTime();
       const alertTime = new Date(latest.timestamp).getTime();
-      
+
       if (now - alertTime < 5000) {
         // Prevent duplicates
         setActiveToasts(current => {

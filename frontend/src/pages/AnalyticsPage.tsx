@@ -90,7 +90,7 @@ export const AnalyticsPage: React.FC = () => {
             <h3 className="text-2xl font-black text-gray-100">{Math.round(healthScore)}%</h3>
           </div>
         </div>
-        
+
         <div className="bg-dark-card border border-dark-border p-4 rounded-xl flex items-center space-x-4 shadow-lg relative overflow-hidden">
           <div className="absolute top-0 right-0 p-3 opacity-5"><Clock className="w-16 h-16 text-blue-400" /></div>
           <div className="p-3 bg-blue-500/10 rounded-lg shrink-0">
@@ -101,7 +101,7 @@ export const AnalyticsPage: React.FC = () => {
             <h3 className="text-2xl font-black text-gray-100">{Math.round(p50Clearance)}m</h3>
           </div>
         </div>
-        
+
         <div className="bg-dark-card border border-dark-border p-4 rounded-xl flex items-center space-x-4 shadow-lg relative overflow-hidden">
           <div className="absolute top-0 right-0 p-3 opacity-5"><AlertTriangle className="w-16 h-16 text-red-400" /></div>
           <div className="p-3 bg-red-500/10 rounded-lg shrink-0">

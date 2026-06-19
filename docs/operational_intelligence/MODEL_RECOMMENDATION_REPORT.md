@@ -1,7 +1,7 @@
 # MODEL RECOMMENDATION REPORT
 
 ## 1. Validation Strategy (CRITICAL)
-**DO NOT randomly split traffic data.** Random train-test splits on temporal data cause severe data leakage, as future traffic conditions will leak into the training set. 
+**DO NOT randomly split traffic data.** Random train-test splits on temporal data cause severe data leakage, as future traffic conditions will leak into the training set.
 
 **Recommendation:** **Time-Aware Validation.**
 - Utilize a strict chronological split (e.g., train on January-September, test on October).

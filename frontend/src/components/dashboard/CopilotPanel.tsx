@@ -9,10 +9,10 @@ type CopilotMode = 'EXECUTIVE' | 'DISPATCHER' | 'ANALYST';
 export const CopilotPanel: React.FC = () => {
   const selectedId = useIncidentStore((state) => state.selectedIncidentId);
   const selectedIncident = useIncidentStore((state) => selectedId ? state.incidents[selectedId] : null);
-  
+
   const { explanations, isGenerating, setExplanation, setGenerating } = useCopilotStore();
   const [activeMode, setActiveMode] = useState<CopilotMode>('EXECUTIVE');
-  
+
   const currentExplanation = selectedId ? explanations[selectedId] : null;
 
   useEffect(() => {
@@ -28,13 +28,13 @@ export const CopilotPanel: React.FC = () => {
             longitude: selectedIncident.longitude,
             mode: activeMode // Optional payload if backend supports it
           });
-          
+
           let explanationText = res.explanation || res.narrative || res.data;
-          
+
           if (res.provider) {
              explanationText = `<div class="mb-3 pb-2 border-b border-brand-accent/20 flex items-center justify-between"><span class="text-[9px] font-bold text-brand-accent uppercase tracking-widest flex items-center"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-1.5 animate-pulse"></span>ACTIVE LLM: ${res.provider}</span></div>${explanationText}`;
           }
-          
+
           // Frontend simulated tone shift if backend returns same text
           if (activeMode === 'EXECUTIVE') {
             explanationText = `<div class="mb-2 font-bold text-white">Executive Summary</div>${explanationText}`;
@@ -59,7 +59,7 @@ export const CopilotPanel: React.FC = () => {
   return (
     <div className="bg-[#121626] border border-brand-accent/20 rounded-xl p-5 shadow-glow-elevated flex flex-col h-full relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-      
+
       <div className="flex flex-col mb-4 z-10 space-y-3">
         <div className="flex items-center justify-between">
           <h3 className="font-bold text-gray-200 text-sm tracking-wide flex items-center">
@@ -106,7 +106,7 @@ export const CopilotPanel: React.FC = () => {
                   GORI {Math.round(selectedIncident.gori_score)}
                 </span>
               </div>
-              
+
               {isGenerating ? (
                 <div className="py-4 space-y-3 animate-pulse">
                   <div className="h-2 bg-dark-border rounded w-3/4"></div>

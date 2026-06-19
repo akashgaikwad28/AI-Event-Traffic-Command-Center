@@ -6,7 +6,7 @@ export const TelemetryPanel: React.FC = () => {
   const [metrics, setMetrics] = useState<any>(null);
   const isConnected = useWebSocketStore((state) => state.isConnected);
   const [latencyHistory, setLatencyHistory] = useState<number[]>(Array(40).fill(10));
-  
+
   useEffect(() => {
     // Polling actual backend observability metrics
     const fetchMetrics = async () => {
@@ -14,7 +14,7 @@ export const TelemetryPanel: React.FC = () => {
         const start = performance.now();
         const res = await api.getStreamMetrics();
         const latency = performance.now() - start;
-        
+
         setMetrics({
           requests_sec: res.websocket_metrics?.active_connections * 2 || 0,
           active_incidents: res.cache_metrics?.active_incidents || 0,
@@ -35,7 +35,7 @@ export const TelemetryPanel: React.FC = () => {
         console.error("Telemetry failed", e);
       }
     };
-    
+
     fetchMetrics();
     const interval = setInterval(fetchMetrics, 3000);
     return () => clearInterval(interval);
@@ -94,7 +94,7 @@ export const TelemetryPanel: React.FC = () => {
              // Calculate percentage relative to a max reasonable latency (e.g. 100ms)
              const heightPct = Math.min(100, Math.max(5, (val / 100) * 100));
              return (
-               <div key={i} className={`flex-1 rounded-t transition-all duration-300 ${val > 50 ? 'bg-amber-500/80' : 'bg-blue-500/80'}`} 
+               <div key={i} className={`flex-1 rounded-t transition-all duration-300 ${val > 50 ? 'bg-amber-500/80' : 'bg-blue-500/80'}`}
                     style={{ height: `${heightPct}%` }}></div>
              )
           })}

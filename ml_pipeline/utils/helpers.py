@@ -1,6 +1,8 @@
-import random
-import numpy as np
 import logging
+import random
+
+import numpy as np
+
 
 def set_seed(seed: int = 42):
     """

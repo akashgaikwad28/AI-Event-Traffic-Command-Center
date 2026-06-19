@@ -6,7 +6,7 @@
 ![React](https://img.shields.io/badge/Frontend-React%20%7C%20TypeScript-61DAFB?logo=react&logoColor=black)
 ![AI](https://img.shields.io/badge/AI-Generative%20%2B%20Predictive-FF6F00)
 
-**GridWise AI** is an open-source, enterprise-grade, real-time AI Traffic Operations Command Center. 
+**GridWise AI** is an open-source, enterprise-grade, real-time AI Traffic Operations Command Center.
 
 Moving beyond traditional dashboards and ML notebooks, GridWise AI is a complete operational intelligence platform. It ingests live event metadata, runs multi-model inference pipelines to calculate cascading congestion risks, and utilizes Generative AI to recommend dynamic manpower deployments, barricading strategies, and optimal diversion plans.
 

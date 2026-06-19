@@ -29,7 +29,6 @@ async def websocket_endpoint(websocket: WebSocket, topic: str):
         ws_manager.disconnect(websocket, topic)
 
 
-
 from fastapi.responses import JSONResponse
 
 from backend.app.core.logger import get_logger

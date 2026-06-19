@@ -36,7 +36,7 @@ export const IncidentFeed: React.FC = () => {
           sortedIncidents.map((incident) => {
             const isSelected = incident.incident_id === selectedId;
             const isCritical = incident.gori_score > 70;
-            
+
             return (
               <button
                 key={incident.incident_id}

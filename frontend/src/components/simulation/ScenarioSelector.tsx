@@ -19,9 +19,9 @@ export const ScenarioSelector: React.FC = () => {
   return (
     <div className="bg-slate-800 p-4 rounded-lg border border-slate-700 mb-4">
       <h3 className="text-lg font-bold text-white mb-3">Select Scenario</h3>
-      
+
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <button 
+        <button
           onClick={() => runVisualSimulation('ACCIDENT_CASCADE')}
           disabled={isRunning}
           className="bg-slate-700 hover:bg-slate-600 text-left p-3 rounded transition-colors disabled:opacity-50 border border-transparent hover:border-slate-500"
@@ -29,7 +29,7 @@ export const ScenarioSelector: React.FC = () => {
           <div className="font-bold text-white">Accident Cascade</div>
           <div className="text-xs text-slate-400">High Risk • Major Intersection</div>
         </button>
-        <button 
+        <button
           onClick={() => runVisualSimulation('STADIUM_EVENT_EGRESS')}
           disabled={isRunning}
           className="bg-slate-700 hover:bg-slate-600 text-left p-3 rounded transition-colors disabled:opacity-50 border border-transparent hover:border-slate-500"
@@ -59,8 +59,8 @@ export const ScenarioSelector: React.FC = () => {
               <option value="critical">Critical</option>
             </select>
           </div>
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isRunning}
             className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1 rounded transition-colors disabled:opacity-50"
           >

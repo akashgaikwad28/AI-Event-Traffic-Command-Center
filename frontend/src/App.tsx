@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     wsService.connect();
-    
+
     const fetchSnapshot = async () => {
       try {
         const data = await api.getLiveSnapshot();
