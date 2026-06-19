@@ -2,7 +2,7 @@ import React from 'react';
 import { useIncidentStore } from '../../store/incident.store';
 import { useSimulationStore } from '../../store/simulation.store';
 import { useAnalyticsStore } from '../../store/analytics.store';
-import { RotateCcw, AlertTriangle, Shield, Car, Zap, Wind, CloudRain, Droplets, Thermometer, Construction } from 'lucide-react';
+import { RotateCcw, AlertTriangle, Shield, Car, Zap, Wind, Droplets, Thermometer, Construction } from 'lucide-react';
 import { api } from '../../services/api';
 import { useDemoStore } from '../../store/demo.store';
 import { useNavigate } from 'react-router-dom';

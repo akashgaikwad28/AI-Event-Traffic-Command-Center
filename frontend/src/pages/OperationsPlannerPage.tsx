@@ -61,7 +61,7 @@ export const OperationsPlannerPage: React.FC = () => {
           {plans.map((plan) => {
             const aiConfidence = Math.round(plan.confidence * 100) || 85;
             const isCritical = plan.operational_risk === 'CRITICAL';
-            const riskColor = isCritical ? 'red' : 'brand-primary';
+            // const riskColor = isCritical ? 'red' : 'brand-primary';
             const historicalCount = Math.floor(Math.random() * 50) + 20;
 
             // Derived GORI Breakdown

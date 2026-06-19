@@ -8,7 +8,7 @@ export const SimulationPage: React.FC = () => {
 
   // Find the most recent or active simulation result to showcase
   const demoPlan = plans.length > 0 ? plans[plans.length - 1] : null;
-  const impact = demoPlan?.predicted_impact?.expected_case || demoPlan?.predicted_impact?.EXPECTED_CASE;
+  const impact = demoPlan?.predicted_impact?.EXPECTED_CASE;
 
   return (
     <div className="h-full w-full overflow-y-auto p-6 space-y-6 bg-dark-bg text-gray-200">
