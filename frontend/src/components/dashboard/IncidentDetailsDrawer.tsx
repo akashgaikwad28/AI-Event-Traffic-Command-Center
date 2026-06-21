@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIncidentStore } from '../../store/incident.store';
 import { useSimulationStore } from '../../store/simulation.store';
-import { api } from '../../services/api';
+
 import { IncidentTimeline } from './IncidentTimeline';
 import { X, Shield, Activity, Compass, DollarSign, BrainCircuit, CheckCircle } from 'lucide-react';
 
