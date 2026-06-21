@@ -1,23 +1,27 @@
 import { create } from 'zustand';
 
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
 interface CopilotState {
-  executiveSummary: string | null;
-  explanations: Record<string, string>;
+  chatHistory: Record<string, ChatMessage[]>;
   isGenerating: boolean;
-  setExecutiveSummary: (summary: string) => void;
-  setExplanation: (incidentId: string, explanation: string) => void;
+  addMessage: (incidentId: string, message: ChatMessage) => void;
   setGenerating: (status: boolean) => void;
-  clearCopilot: () => void;
+  clearHistory: (incidentId: string) => void;
 }
 
 export const useCopilotStore = create<CopilotState>((set) => ({
-  executiveSummary: null,
-  explanations: {},
+  chatHistory: {},
   isGenerating: false,
-  setExecutiveSummary: (summary) => set({ executiveSummary: summary }),
-  setExplanation: (incidentId, explanation) => set((state) => ({
-    explanations: { ...state.explanations, [incidentId]: explanation }
-  })),
+  addMessage: (incidentId, message) => set((state) => {
+    const existing = state.chatHistory[incidentId] || [];
+    return { chatHistory: { ...state.chatHistory, [incidentId]: [...existing, message] } };
+  }),
   setGenerating: (status) => set({ isGenerating: status }),
-  clearCopilot: () => set({ executiveSummary: null, explanations: {} })
+  clearHistory: (incidentId) => set((state) => ({
+    chatHistory: { ...state.chatHistory, [incidentId]: [] }
+  }))
 }));

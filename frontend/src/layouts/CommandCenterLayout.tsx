@@ -5,6 +5,7 @@ import { useGoriStore } from '../store/gori.store';
 import { useSimulationStore } from '../store/simulation.store';
 import { LayoutDashboard, Map as MapIcon, Sliders, BarChart3, Wifi, WifiOff, Activity, PlaySquare, FileText } from 'lucide-react';
 import { GlobalToastAlerts } from '../components/common/GlobalToastAlerts';
+import { FloatingCopilotWidget } from '../components/common/FloatingCopilotWidget';
 
 export const CommandCenterLayout: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const isConnected = useWebSocketStore((state) => state.isConnected);
@@ -125,6 +126,7 @@ export const CommandCenterLayout: React.FC<{children: React.ReactNode}> = ({ chi
 
         {/* Global Modals / Overlays */}
         <GlobalToastAlerts />
+        <FloatingCopilotWidget />
       </div>
     </div>
   );

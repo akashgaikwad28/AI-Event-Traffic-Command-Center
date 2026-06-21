@@ -6,7 +6,6 @@ import { DemoControls } from '../components/simulation/DemoControls';
 import { useGoriStore } from '../store/gori.store';
 import { useSimulationStore } from '../store/simulation.store';
 import { ShieldCheck, Flame, Compass } from 'lucide-react';
-import { CopilotPanel } from '../components/dashboard/CopilotPanel';
 
 export const DashboardPage: React.FC = () => {
   const avgGori = useGoriStore((state) => state.avgGori);
@@ -125,12 +124,8 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="h-64">
+          <div className="flex-1 min-h-[400px]">
             <IncidentFeed />
-          </div>
-
-          <div className="flex-1 min-h-[300px]">
-            <CopilotPanel />
           </div>
         </div>
       </div>

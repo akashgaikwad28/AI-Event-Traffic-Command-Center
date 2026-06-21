@@ -5,6 +5,19 @@ from fastapi import FastAPI
 
 from backend.app.api.router import api_router
 from backend.app.core.config import get_settings
+from backend.app.api.v1.endpoints import (
+    analytics,
+    congestion,
+    events,
+    genai,
+    health,
+    observability,
+    optimization,
+    predictions,
+    simulation,
+    stream,
+)
+from backend.app.copilot.routers import copilot_api
 from backend.app.core.logger import get_logger, setup_logging
 from backend.app.core.middleware import (
     CorrelationIdMiddleware,
@@ -41,6 +54,8 @@ setup_cors_middleware(app)
 app.add_middleware(CorrelationIdMiddleware)
 add_exception_handlers(app)
 app.include_router(api_router, prefix=settings.api_v1_prefix)
+app.include_router(genai.router, prefix="/api/v1/genai", tags=["GenAI"])
+app.include_router(copilot_api.router, prefix="/api/v1/copilot", tags=["Copilot"])
 
 from fastapi.responses import RedirectResponse
 

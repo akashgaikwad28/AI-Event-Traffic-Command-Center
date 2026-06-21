@@ -112,10 +112,15 @@ export const api = {
   },
 
   async getIncidentExplanation(incidentData: any) {
-    const response = await fetch(`${API_BASE}/genai/explain_incident`, {
+    const payload = {
+      incident_id: incidentData.incident_id || "UNKNOWN",
+      query: incidentData.query || `Provide a ${incidentData.mode} explanation for this incident.`,
+      context_overrides: incidentData
+    };
+    const response = await fetch(`${API_BASE}/copilot/explain`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(incidentData),
+      body: JSON.stringify(payload),
     });
     if (!response.ok) throw new Error('Failed to fetch explanation');
     return response.json();

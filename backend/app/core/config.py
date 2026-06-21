@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     # AI Inference Config
     ai_artifacts_dir: str = "backend/app/ai/artifacts"
     ai_model_version: str = "1.0"
+    groq_api_key: str | None = None
 
     # GORI Weights (must sum to 1.0)
     gori_weight_congestion: float = 0.25

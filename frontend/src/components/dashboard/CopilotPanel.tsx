@@ -1,145 +1,172 @@
-import React, { useEffect, useState } from 'react';
-import { useCopilotStore } from '../../store/copilot.store';
+import React, { useEffect, useState, useRef } from 'react';
+import { useCopilotStore, ChatMessage } from '../../store/copilot.store';
 import { useIncidentStore } from '../../store/incident.store';
-import { BrainCircuit, Sparkles, AlertTriangle, ChevronRight, Loader2 } from 'lucide-react';
+import { BrainCircuit, Sparkles, AlertTriangle, Loader2, Send } from 'lucide-react';
 import { api } from '../../services/api';
-
-type CopilotMode = 'EXECUTIVE' | 'DISPATCHER' | 'ANALYST';
 
 export const CopilotPanel: React.FC = () => {
   const selectedId = useIncidentStore((state) => state.selectedIncidentId);
   const selectedIncident = useIncidentStore((state) => selectedId ? state.incidents[selectedId] : null);
 
-  const { explanations, isGenerating, setExplanation, setGenerating } = useCopilotStore();
-  const [activeMode, setActiveMode] = useState<CopilotMode>('EXECUTIVE');
+  const { chatHistory, isGenerating, addMessage, setGenerating } = useCopilotStore();
+  const [error, setError] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState('');
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  const currentExplanation = selectedId ? explanations[selectedId] : null;
+  const currentHistory = selectedId ? (chatHistory[selectedId] || []) : [];
 
   useEffect(() => {
-    if (selectedIncident && !isGenerating) {
-      const fetchExplanation = async () => {
-        setGenerating(true);
-        try {
-          const res = await api.getIncidentExplanation({
-            incident_id: selectedIncident.incident_id,
-            type: selectedIncident.type,
-            gori_score: selectedIncident.gori_score,
-            latitude: selectedIncident.latitude,
-            longitude: selectedIncident.longitude,
-            mode: activeMode // Optional payload if backend supports it
-          });
-
-          let explanationText = res.explanation || res.narrative || res.data;
-
-          if (res.provider) {
-             explanationText = `<div class="mb-3 pb-2 border-b border-brand-accent/20 flex items-center justify-between"><span class="text-[9px] font-bold text-brand-accent uppercase tracking-widest flex items-center"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-1.5 animate-pulse"></span>ACTIVE LLM: ${res.provider}</span></div>${explanationText}`;
-          }
-
-          // Frontend simulated tone shift if backend returns same text
-          if (activeMode === 'EXECUTIVE') {
-            explanationText = `<div class="mb-2 font-bold text-white">Executive Summary</div>${explanationText}`;
-          } else if (activeMode === 'DISPATCHER') {
-            explanationText = `<div class="mb-2 font-bold text-alert-emergency">Tactical Dispatch Required</div><div class="mb-2 text-gray-400">Units must be mobilized immediately.</div>${explanationText}`;
-          } else if (activeMode === 'ANALYST') {
-            explanationText = `<div class="mb-2 font-bold text-brand-primary">GORI Factor Analysis</div><div class="mb-2 text-gray-400">Deep causal breakdown of current severity metrics.</div>${explanationText}`;
-          }
-
-          setExplanation(selectedIncident.incident_id, explanationText);
-        } catch (err) {
-          console.error(err);
-          setExplanation(selectedIncident.incident_id, "Unable to generate AI explanation at this time.");
-        } finally {
-          setGenerating(false);
-        }
-      };
-      fetchExplanation();
+    // Scroll to bottom when messages change
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
-  }, [selectedIncident, activeMode, setExplanation, setGenerating]); // Re-run when mode changes
+  }, [currentHistory, isGenerating]);
+
+  // Initial greeting if history is empty
+  useEffect(() => {
+    if (selectedIncident && currentHistory.length === 0 && !isGenerating) {
+      addMessage(selectedIncident.incident_id, {
+        role: 'assistant',
+        content: `Operational Copilot activated for Incident ${selectedIncident.incident_id.split('-')[0]}. How can I assist with this operation?`
+      });
+    }
+  }, [selectedIncident]);
+
+  const handleSendMessage = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!selectedIncident || !inputValue.trim() || isGenerating) return;
+
+    const userMessage = inputValue.trim();
+    setInputValue('');
+    setError(null);
+
+    // Optimistically add user message
+    addMessage(selectedIncident.incident_id, { role: 'user', content: userMessage });
+    setGenerating(true);
+
+    try {
+      const responsePromise = api.getIncidentExplanation({
+        incident_id: selectedIncident.incident_id,
+        type: selectedIncident.type,
+        gori_score: selectedIncident.gori_score,
+        query: userMessage
+      });
+
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('TIMEOUT')), 12000);
+      });
+
+      const res = await Promise.race([responsePromise, timeoutPromise]) as any;
+
+      const aiResponse = res.explanation || "No insights available.";
+      
+      addMessage(selectedIncident.incident_id, { role: 'assistant', content: aiResponse });
+
+    } catch (err: any) {
+      console.error(err);
+      if (err.message === 'TIMEOUT') {
+        setError("LLM request timed out. The provider may be experiencing high latency.");
+      } else {
+        setError("Failed to fetch explanation due to a network or service error.");
+      }
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   return (
-    <div className="bg-[#121626] border border-brand-accent/20 rounded-xl p-5 shadow-glow-elevated flex flex-col h-full relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-
-      <div className="flex flex-col mb-4 z-10 space-y-3">
+    <div className="h-full w-full flex flex-col relative overflow-hidden bg-dark-bg/90">
+      <div className="flex flex-col z-10 px-4 py-3 border-b border-dark-border/50 bg-[#0B0F19]">
         <div className="flex items-center justify-between">
           <h3 className="font-bold text-gray-200 text-sm tracking-wide flex items-center">
             <BrainCircuit className="w-5 h-5 text-brand-accent mr-2" />
             GridWise Copilot AI
           </h3>
-          {isGenerating && <Loader2 className="w-4 h-4 text-brand-accent animate-spin" />}
-        </div>
-
-        {/* Mode Toggles */}
-        <div className="flex bg-dark-bg/80 border border-dark-border p-1 rounded-lg">
-          {(['EXECUTIVE', 'DISPATCHER', 'ANALYST'] as CopilotMode[]).map((mode) => (
-            <button
-              key={mode}
-              onClick={() => setActiveMode(mode)}
-              className={`flex-1 text-[10px] font-bold py-1.5 rounded-md transition-colors uppercase tracking-wider ${
-                activeMode === mode
-                  ? 'bg-brand-accent/20 text-brand-accent border border-brand-accent/30 shadow-glow-elevated'
-                  : 'text-gray-500 hover:text-gray-300 hover:bg-dark-border/40 border border-transparent'
-              }`}
-            >
-              {mode}
-            </button>
-          ))}
+          {selectedIncident && (
+            <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${
+              selectedIncident.gori_score > 70 ? 'bg-alert-emergency/20 text-alert-emergency' : 'bg-brand-primary/20 text-brand-primary'
+            }`}>
+              GORI {Math.round(selectedIncident.gori_score)}
+            </span>
+          )}
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar z-10">
+      <div 
+        ref={chatContainerRef}
+        className="flex-1 overflow-y-auto p-4 custom-scrollbar z-10 flex flex-col space-y-4"
+      >
         {!selectedIncident ? (
-          <div className="h-full flex flex-col items-center justify-center text-center space-y-3 opacity-60">
+          <div className="h-full flex flex-col items-center justify-center text-center space-y-3 opacity-60 m-auto">
             <Sparkles className="w-10 h-10 text-brand-primary" />
             <p className="text-xs text-gray-400 font-medium max-w-[200px]">
-              Select an incident from the map or feed to generate AI operational insights.
+              Select an incident from the map or feed to open communications.
             </p>
           </div>
         ) : (
-          <div className="space-y-4">
-            <div className="bg-dark-bg/60 border border-dark-border rounded-lg p-3">
-              <div className="flex items-center justify-between mb-2 border-b border-dark-border/50 pb-2">
-                <span className="text-xs font-bold text-gray-300">Context: {selectedIncident.incident_id}</span>
-                <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${
-                  selectedIncident.gori_score > 70 ? 'bg-alert-emergency/20 text-alert-emergency' : 'bg-brand-primary/20 text-brand-primary'
+          <>
+            {currentHistory.map((msg, idx) => (
+              <div key={idx} className={`flex w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[85%] rounded-lg px-3 py-2 text-xs leading-relaxed ${
+                  msg.role === 'user' 
+                    ? 'bg-brand-primary/20 border border-brand-primary/30 text-gray-200 rounded-br-none' 
+                    : 'bg-dark-card border border-dark-border text-gray-300 rounded-bl-none'
                 }`}>
-                  GORI {Math.round(selectedIncident.gori_score)}
-                </span>
+                  <div dangerouslySetInnerHTML={{ __html: msg.content.replace(/\n/g, '<br />') }} />
+                </div>
               </div>
-
-              {isGenerating ? (
-                <div className="py-4 space-y-3 animate-pulse">
-                  <div className="h-2 bg-dark-border rounded w-3/4"></div>
-                  <div className="h-2 bg-dark-border rounded w-full"></div>
-                  <div className="h-2 bg-dark-border rounded w-5/6"></div>
+            ))}
+            
+            {isGenerating && (
+              <div className="flex justify-start w-full">
+                <div className="max-w-[85%] rounded-lg px-4 py-3 bg-dark-card border border-dark-border rounded-bl-none">
+                  <div className="flex items-center space-x-1.5">
+                    <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  </div>
                 </div>
-              ) : (
-                <div className="text-xs text-gray-300 leading-relaxed prose prose-invert">
-                  {currentExplanation ? (
-                    <div dangerouslySetInnerHTML={{ __html: currentExplanation.replace(/\n/g, '<br />') }} />
-                  ) : (
-                    <p className="text-gray-500 italic">No insights available.</p>
-                  )}
-                </div>
-              )}
-            </div>
+              </div>
+            )}
 
-            {currentExplanation && !isGenerating && (
-              <div className="bg-brand-accent/5 border border-brand-accent/20 rounded-lg p-3">
-                <h4 className="text-xxs font-bold uppercase tracking-wider text-brand-accent mb-2 flex items-center">
-                  <AlertTriangle className="w-3 h-3 mr-1" /> Tactical Recommendation
-                </h4>
-                <p className="text-xs text-gray-300">
-                  {selectedIncident.deployment_recommendation || "Initiate standard diversion protocol and deploy fast response units to coordinates."}
-                </p>
-                <button className="mt-3 w-full bg-brand-accent/10 hover:bg-brand-accent/20 text-brand-accent border border-brand-accent/30 rounded py-1.5 text-xs font-bold transition-colors flex items-center justify-center">
-                  Execute Simulation <ChevronRight className="w-3 h-3 ml-1" />
+            {error && (
+              <div className="flex flex-col items-center justify-center py-4 px-2 text-center">
+                <AlertTriangle className="w-6 h-6 text-red-400/80 mb-2" />
+                <p className="text-xs text-red-200/90 mb-3">{error}</p>
+                <button 
+                  onClick={() => setError(null)}
+                  className="text-[10px] uppercase font-bold bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/20 px-4 py-2 rounded transition-colors"
+                >
+                  Dismiss
                 </button>
               </div>
             )}
-          </div>
+          </>
         )}
       </div>
+
+      {/* Chat Input Area */}
+      {selectedIncident && (
+        <div className="p-3 bg-[#0B0F19] border-t border-dark-border/50">
+          <form onSubmit={handleSendMessage} className="relative flex items-center">
+            <input 
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Ask for operational insights..."
+              disabled={isGenerating}
+              className="w-full bg-dark-bg/60 border border-dark-border text-xs text-gray-200 rounded-full pl-4 pr-10 py-2.5 focus:outline-none focus:border-brand-accent/50 focus:ring-1 focus:ring-brand-accent/50 disabled:opacity-50"
+            />
+            <button 
+              type="submit"
+              disabled={!inputValue.trim() || isGenerating}
+              className="absolute right-1 w-8 h-8 flex items-center justify-center rounded-full bg-brand-primary text-white hover:bg-brand-primary/80 disabled:opacity-50 disabled:hover:bg-brand-primary transition-colors"
+            >
+              <Send className="w-3.5 h-3.5" />
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

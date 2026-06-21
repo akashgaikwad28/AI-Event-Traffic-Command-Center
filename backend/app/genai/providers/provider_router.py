@@ -38,31 +38,34 @@ class ProviderRouter:
             return res, "Offline Fallback"
 
         try:
-            # 1. Attempt Gemini with 5s timeout
-            genai_logger.provider_request_started("gemini", "EXECUTIVE")
+            # 1. Attempt Groq with 5s timeout
+            genai_logger.provider_request_started("groq", "EXECUTIVE")
             res = await asyncio.wait_for(
-                self.gemini.generate_explanation(prompt, context), timeout=5.0
+                self.groq.generate_explanation(prompt, context), timeout=5.0
             )
             latency = int(round((time.perf_counter() - start_time) * 1000))
             genai_logger.provider_request_completed(
-                "gemini", "EXECUTIVE", latency, int(len(prompt + res) * 0.25), False
+                "groq", "EXECUTIVE", latency, int(len(prompt + res) * 0.25), False
             )
-            return res, "Gemini AI"
-        except (TimeoutError, Exception) as e1:
-            genai_logger.provider_fallback("gemini", "groq", str(e1))
+            return res, "Groq Fast Inference"
+        except Exception as e1:
+            if str(e1) in ["API_KEY_MISSING", "API_KEY_INVALID"]:
+                return "The GridWise AI Copilot is currently busy or experiencing a temporary issue on our end. Please try again shortly.", "System Error"
+                
+            genai_logger.provider_fallback("groq", "gemini", str(e1))
             try:
-                # 2. Fallback to Groq with 5s timeout
-                genai_logger.provider_request_started("groq", "EXECUTIVE")
+                # 2. Fallback to Gemini with 5s timeout
+                genai_logger.provider_request_started("gemini", "EXECUTIVE")
                 res = await asyncio.wait_for(
-                    self.groq.generate_explanation(prompt, context), timeout=5.0
+                    self.gemini.generate_explanation(prompt, context), timeout=5.0
                 )
                 latency = int(round((time.perf_counter() - start_time) * 1000))
                 genai_logger.provider_request_completed(
-                    "groq", "EXECUTIVE", latency, int(len(prompt + res) * 0.25), True
+                    "gemini", "EXECUTIVE", latency, int(len(prompt + res) * 0.25), True
                 )
-                return res, "Groq Fast Inference"
+                return res, "Gemini AI"
             except (TimeoutError, Exception) as e2:
-                genai_logger.provider_fallback("groq", "gemma", str(e2))
+                genai_logger.provider_fallback("gemini", "gemma", str(e2))
                 try:
                     # 3. Fallback to Gamma/Gemma with 5s timeout
                     genai_logger.provider_request_started("gemma", "EXECUTIVE")
