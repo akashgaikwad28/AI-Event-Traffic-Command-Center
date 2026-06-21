@@ -50,8 +50,11 @@ class ProviderRouter:
             return res, "Groq Fast Inference"
         except Exception as e1:
             if str(e1) in ["API_KEY_MISSING", "API_KEY_INVALID"]:
-                return "The GridWise AI Copilot is currently busy or experiencing a temporary issue on our end. Please try again shortly.", "System Error"
-                
+                return (
+                    "The GridWise AI Copilot is currently busy or experiencing a temporary issue on our end. Please try again shortly.",
+                    "System Error",
+                )
+
             genai_logger.provider_fallback("groq", "gemini", str(e1))
             try:
                 # 2. Fallback to Gemini with 5s timeout

@@ -10,13 +10,13 @@ The architecture is composed of several key components working together:
 graph TD
     User([User Request]) --> Gateway[API Gateway]
     Gateway --> CopilotEngine[AI Copilot Engine]
-    
+
     subgraph Copilot System
         CopilotEngine --> CGE[Context Grounding Engine]
         CopilotEngine --> Guardrails[Safety Guardrails]
         CopilotEngine --> RAG[RAG Restriction Layer]
     end
-    
+
     CGE --> KGraph[(Knowledge Graph)]
     CGE --> StreamDB[(Stream Cache)]
     RAG --> VectorDB[(Vector Database)]

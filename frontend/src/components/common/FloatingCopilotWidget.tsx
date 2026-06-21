@@ -16,9 +16,9 @@ export const FloatingCopilotWidget: React.FC = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      
+
       {/* The Floating Panel */}
-      <div 
+      <div
         className={`transition-all duration-300 ease-in-out origin-bottom-right mb-4 ${
           isOpen ? 'scale-100 opacity-100 pointer-events-auto' : 'scale-95 opacity-0 pointer-events-none'
         }`}
@@ -34,8 +34,8 @@ export const FloatingCopilotWidget: React.FC = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`group flex items-center justify-center space-x-2 px-5 py-3.5 rounded-full shadow-glow-elevated transition-all duration-300 hover:scale-105 ${
-          isOpen 
-            ? 'bg-dark-card border border-dark-border text-gray-400 w-14 h-14 !px-0' 
+          isOpen
+            ? 'bg-dark-card border border-dark-border text-gray-400 w-14 h-14 !px-0'
             : 'bg-gradient-to-r from-brand-primary to-brand-accent text-white border-2 border-brand-accent/50 min-w-[200px]'
         }`}
       >

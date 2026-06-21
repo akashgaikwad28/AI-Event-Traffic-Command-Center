@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useCopilotStore, ChatMessage } from '../../store/copilot.store';
+import { useCopilotStore } from '../../store/copilot.store';
 import { useIncidentStore } from '../../store/incident.store';
-import { BrainCircuit, Sparkles, AlertTriangle, Loader2, Send } from 'lucide-react';
+import { BrainCircuit, Sparkles, AlertTriangle, Send } from 'lucide-react';
 import { api } from '../../services/api';
 
 export const CopilotPanel: React.FC = () => {
@@ -59,7 +59,7 @@ export const CopilotPanel: React.FC = () => {
       const res = await Promise.race([responsePromise, timeoutPromise]) as any;
 
       const aiResponse = res.explanation || "No insights available.";
-      
+
       addMessage(selectedIncident.incident_id, { role: 'assistant', content: aiResponse });
 
     } catch (err: any) {
@@ -92,7 +92,7 @@ export const CopilotPanel: React.FC = () => {
         </div>
       </div>
 
-      <div 
+      <div
         ref={chatContainerRef}
         className="flex-1 overflow-y-auto p-4 custom-scrollbar z-10 flex flex-col space-y-4"
       >
@@ -108,15 +108,15 @@ export const CopilotPanel: React.FC = () => {
             {currentHistory.map((msg, idx) => (
               <div key={idx} className={`flex w-full ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[85%] rounded-lg px-3 py-2 text-xs leading-relaxed ${
-                  msg.role === 'user' 
-                    ? 'bg-brand-primary/20 border border-brand-primary/30 text-gray-200 rounded-br-none' 
+                  msg.role === 'user'
+                    ? 'bg-brand-primary/20 border border-brand-primary/30 text-gray-200 rounded-br-none'
                     : 'bg-dark-card border border-dark-border text-gray-300 rounded-bl-none'
                 }`}>
                   <div dangerouslySetInnerHTML={{ __html: msg.content.replace(/\n/g, '<br />') }} />
                 </div>
               </div>
             ))}
-            
+
             {isGenerating && (
               <div className="flex justify-start w-full">
                 <div className="max-w-[85%] rounded-lg px-4 py-3 bg-dark-card border border-dark-border rounded-bl-none">
@@ -133,7 +133,7 @@ export const CopilotPanel: React.FC = () => {
               <div className="flex flex-col items-center justify-center py-4 px-2 text-center">
                 <AlertTriangle className="w-6 h-6 text-red-400/80 mb-2" />
                 <p className="text-xs text-red-200/90 mb-3">{error}</p>
-                <button 
+                <button
                   onClick={() => setError(null)}
                   className="text-[10px] uppercase font-bold bg-red-500/10 hover:bg-red-500/20 text-red-300 border border-red-500/20 px-4 py-2 rounded transition-colors"
                 >
@@ -149,7 +149,7 @@ export const CopilotPanel: React.FC = () => {
       {selectedIncident && (
         <div className="p-3 bg-[#0B0F19] border-t border-dark-border/50">
           <form onSubmit={handleSendMessage} className="relative flex items-center">
-            <input 
+            <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -157,7 +157,7 @@ export const CopilotPanel: React.FC = () => {
               disabled={isGenerating}
               className="w-full bg-dark-bg/60 border border-dark-border text-xs text-gray-200 rounded-full pl-4 pr-10 py-2.5 focus:outline-none focus:border-brand-accent/50 focus:ring-1 focus:ring-brand-accent/50 disabled:opacity-50"
             />
-            <button 
+            <button
               type="submit"
               disabled={!inputValue.trim() || isGenerating}
               className="absolute right-1 w-8 h-8 flex items-center justify-center rounded-full bg-brand-primary text-white hover:bg-brand-primary/80 disabled:opacity-50 disabled:hover:bg-brand-primary transition-colors"

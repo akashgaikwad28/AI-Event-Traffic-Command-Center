@@ -4,20 +4,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from backend.app.api.router import api_router
-from backend.app.core.config import get_settings
 from backend.app.api.v1.endpoints import (
-    analytics,
-    congestion,
-    events,
     genai,
-    health,
-    observability,
-    optimization,
-    predictions,
-    simulation,
-    stream,
 )
 from backend.app.copilot.routers import copilot_api
+from backend.app.core.config import get_settings
 from backend.app.core.logger import get_logger, setup_logging
 from backend.app.core.middleware import (
     CorrelationIdMiddleware,
