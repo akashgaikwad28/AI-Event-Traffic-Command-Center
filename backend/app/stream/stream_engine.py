@@ -63,7 +63,9 @@ class StreamEngine:
             )
 
             # Extract actual GORI from the ML model output, or use the injected demo GORI
-            gori = event.get("gori_score") or assessment.get("gori", {}).get("gori_score", 45.0)
+            gori = event.get("gori_score") or assessment.get("gori", {}).get(
+                "gori_score", 45.0
+            )
 
             # Update Cache
             stream_cache.update_gori(gori)
