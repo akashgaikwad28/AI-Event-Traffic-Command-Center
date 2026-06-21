@@ -5,7 +5,7 @@ import { useAnalyticsStore } from '../../store/analytics.store';
 import { RotateCcw, AlertTriangle, Shield, Car, Zap, Wind, Droplets, Thermometer, Construction } from 'lucide-react';
 import { api } from '../../services/api';
 import { useDemoStore } from '../../store/demo.store';
-import { useNavigate } from 'react-router-dom';
+
 import { SIMULATION_SCENARIOS } from '../../constants/scenarios';
 
 export const DemoControls: React.FC = () => {
@@ -14,7 +14,7 @@ export const DemoControls: React.FC = () => {
   const clearSimulation = useSimulationStore((state) => state.clearSimulation);
   const setOperationalPlan = useSimulationStore((state) => state.setOperationalPlan);
   const clearAlerts = useAnalyticsStore((state) => state.clearAlerts);
-  const navigate = useNavigate();
+
 
   const clearAll = async () => {
     try {

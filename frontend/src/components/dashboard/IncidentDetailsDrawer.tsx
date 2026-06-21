@@ -12,35 +12,7 @@ export const IncidentDetailsDrawer: React.FC = () => {
   const isLoading = useSimulationStore((state) => selectedId ? state.loadingPlans[selectedId] : false);
   const setSelectedIncidentId = useIncidentStore((state) => state.setSelectedIncidentId);
 
-  // We need a generatePlan function here since we removed it from the global store
-  const setOperationalPlan = useSimulationStore((state) => state.setOperationalPlan);
-  const setLoadingPlan = useSimulationStore((state) => state.setLoadingPlan);
 
-  const generatePlan = async (incidentId: string) => {
-    if (!selectedIncident) return;
-    setLoadingPlan(incidentId, true);
-    try {
-      const payload = {
-        incident_id: selectedIncident.incident_id,
-        latitude: selectedIncident.latitude,
-        longitude: selectedIncident.longitude,
-        gori_score: selectedIncident.gori_score,
-        congestion_severity: selectedIncident.gori_score > 75 ? 'CRITICAL' : (selectedIncident.gori_score > 45 ? 'HIGH' : 'NORMAL'),
-        requires_closure: selectedIncident.heavy_vehicle || selectedIncident.gori_score > 80,
-        heavy_vehicle_involved: selectedIncident.heavy_vehicle,
-        is_rush_hour: selectedIncident.is_rush_hour,
-        hotspot_recurrence: selectedIncident.gori_score > 70 ? 0.82 : 0.35,
-        historical_spread_probability: selectedIncident.gori_score > 70 ? 0.68 : 0.22,
-      };
-
-      const newPlan = await api.requestOptimization(payload);
-      setOperationalPlan(incidentId, newPlan);
-    } catch (err) {
-      console.error('Failed to generate operational plan', err);
-    } finally {
-      setLoadingPlan(incidentId, false);
-    }
-  };
 
   if (!selectedIncident) return null;
 
