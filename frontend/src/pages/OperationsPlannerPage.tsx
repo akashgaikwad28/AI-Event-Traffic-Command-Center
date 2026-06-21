@@ -16,7 +16,7 @@ export const OperationsPlannerPage: React.FC = () => {
       {/* Title Header */}
       <div className="border-b border-dark-border/50 pb-6">
         <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-400 tracking-tight">AI Resource Operations Planner</h2>
-        <p className="text-sm text-gray-400 font-medium mt-2">Scenario-driven dispatch scoring, barricade configuration efficiency, and congestion cost mitigation.</p>
+        <p className="text-sm text-gray-400 font-medium mt-2">Using historical and real-time data to forecast event-related traffic impact and recommend optimal manpower, barricading, and diversion plans.</p>
       </div>
 
       {/* Hero Resource Allocation Summary Bar */}
@@ -70,7 +70,7 @@ export const OperationsPlannerPage: React.FC = () => {
             const riskTime = Math.round(plan.gori_score * 0.20);
 
             // Timeline calculations
-            const expectedClearance = plan.predicted_impact?.EXPECTED_CASE?.estimated_clearance_minutes || 45;
+            const expectedClearance = plan.predicted_impact?.expected_case?.estimated_clearance_minutes || 45;
             const t15 = Math.round(expectedClearance * 0.33);
             const t30 = Math.round(expectedClearance * 0.66);
 
@@ -94,10 +94,13 @@ export const OperationsPlannerPage: React.FC = () => {
                     <span className="text-xs text-gray-400 font-bold uppercase tracking-widest block mb-2">Operational Optimization Contract</span>
                     <h3 className="text-2xl font-black text-gray-100 flex items-center flex-wrap gap-3">
                       <span className="text-gray-100">{plan.plan_id}</span>
+                      <span className="text-xs px-3 py-1 rounded bg-dark-bg border border-dark-border/60 text-gray-400 font-bold tracking-wider flex items-center">
+                        RAW SENSOR TEST INPUT: {plan.gori_score} GORI
+                      </span>
                       <span className={`text-sm px-4 py-1.5 rounded-full font-bold tracking-wider ${
-                        isCritical ? 'bg-red-500/10 text-red-400 border border-red-500/30' : 'bg-brand-primary/10 text-brand-primary border border-brand-primary/30'
+                        isCritical ? 'bg-red-500/10 text-red-400 border border-red-500/30' : 'bg-amber-500/10 text-amber-500 border border-amber-500/30'
                       }`}>
-                        RISK: {plan.operational_risk} ({plan.gori_score} GORI)
+                        AI PREDICTED RISK: {plan.operational_risk}
                       </span>
                     </h3>
                   </div>
@@ -162,7 +165,7 @@ export const OperationsPlannerPage: React.FC = () => {
                             <span className="leading-relaxed">{exp}</span>
                           </li>
                         )) : (
-                          <li className="text-sm text-gray-400 italic">"Based on congestion velocity and current resource availability, this deployment mitigates secondary collision risk by 42%."</li>
+                          <li className="text-sm text-gray-400 italic">"Processing exact AI tactical justification based on ML model outputs..."</li>
                         )}
                       </ul>
                     </div>
@@ -196,7 +199,7 @@ export const OperationsPlannerPage: React.FC = () => {
                         <h4 className="text-[10px] font-bold text-emerald-400 mb-2 uppercase tracking-widest">With AI Plan</h4>
                         <div className="text-xl font-black text-gray-200 mb-1">Contained</div>
                         <div className="text-xs text-gray-400 font-medium">Spread Mitigated</div>
-                        <div className="mt-3 text-xl font-black text-emerald-400 mb-1">-{plan.predicted_impact?.EXPECTED_CASE?.congestion_reduction || 0}%</div>
+                        <div className="mt-3 text-xl font-black text-emerald-400 mb-1">-{plan.predicted_impact?.expected_case?.congestion_reduction || 0}%</div>
                         <div className="text-xs text-gray-400 font-medium">Congestion Flow Relief</div>
                       </div>
                     </div>
@@ -257,9 +260,9 @@ export const OperationsPlannerPage: React.FC = () => {
 
                       <div className="space-y-3">
                         {Object.entries(plan.predicted_impact || {}).map(([rawCaseName, data]) => {
-                          const caseName = rawCaseName.toUpperCase();
-                          const isWorst = caseName === 'WORST_CASE';
-                          const isBest = caseName === 'BEST_CASE';
+                          const caseName = rawCaseName;
+                          const isWorst = caseName === 'worst_case';
+                          const isBest = caseName === 'best_case';
 
                           const labelColor = isWorst ? 'text-red-400' : (isBest ? 'text-emerald-400' : 'text-amber-400');
                           const borderClass = isWorst ? 'border-red-500/30 bg-red-500/5 hover:bg-red-500/10' : (isBest ? 'border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10' : 'border-amber-500/30 bg-amber-500/5 hover:bg-amber-500/10');

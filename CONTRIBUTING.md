@@ -1,41 +1,51 @@
 # Contributing to GridWise AI
 
-First off, thank you for considering contributing to GridWise AI! It's people like you that make open-source a great community.
+First off, thank you for considering contributing to GridWise AI! It's people like you that make GridWise AI a great tool for smart city infrastructure.
 
-## Code of Conduct
+## 1. Where do I go from here?
 
-By participating in this project, you are expected to uphold our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it before contributing.
+If you've noticed a bug or have a feature request, make sure to check our issues page to see if someone else in the community has already created a ticket. If not, go ahead and make one!
 
-## How Can I Contribute?
+## 2. Fork & create a branch
 
-### Reporting Bugs
+If this is something you think you can fix, then fork GridWise AI and create a branch with a descriptive name.
 
-- Ensure the bug was not already reported by searching on GitHub under Issues.
-- If you're unable to find an open issue addressing the problem, open a new one. Be sure to include a title and clear description, as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
+A good branch name would be (where issue #325 is the ticket you're working on):
 
-### Suggesting Enhancements
+```shell
+git checkout -b 325-add-new-dashboard-widget
+```
 
-- Open a new issue with a clear title and description.
-- Explain why this enhancement would be useful to most users.
+## 3. Implementation and Testing
 
-### Pull Requests
+Please follow the [Development Guidelines](docs/DEVELOPMENT_GUIDELINES.md) to ensure your code aligns with our project standards.
 
-1. Fork the repository and create your branch from `main`.
-2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
-4. Ensure the test suite passes.
-5. Make sure your code lints.
-6. Issue that pull request!
+Don't forget to run our test suite before submitting your PR!
 
-## Development Setup
+## 4. Make a Pull Request
 
-Please refer to the [README.md](README.md) for detailed instructions on setting up the backend and frontend locally.
+At this point, you should switch back to your master branch and make sure it's up to date with GridWise AI's master branch:
 
-## Commit Messages
+```shell
+git remote add upstream git@github.com:akashgaikwad28/AI-Event-Traffic-Command-Center.git
+git checkout main
+git pull upstream main
+```
 
-- Use the present tense ("Add feature" not "Added feature").
-- Use the imperative mood ("Move cursor to..." not "Moves cursor to...").
-- Limit the first line to 72 characters or less.
-- Reference issues and pull requests liberally after the first line.
+Then update your feature branch from your local copy of main, and push it!
 
-Thank you for your contributions!
+```shell
+git checkout 325-add-new-dashboard-widget
+git rebase main
+git push --set-upstream origin 325-add-new-dashboard-widget
+```
+
+Finally, go to GitHub and make a Pull Request.
+
+## 5. Keeping your Pull Request updated
+
+If a maintainer asks you to "rebase" your PR, they're saying that a lot of code has changed, and that you need to update your branch so it's easier to merge.
+
+## 6. Code of Conduct
+
+By participating in this project, you agree to abide by the [Code of Conduct](CODE_OF_CONDUCT.md).

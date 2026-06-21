@@ -59,14 +59,14 @@ export const DemoControls: React.FC = () => {
         longitude: scen.payload.lng,
         gori_score: scen.payload.gori,
         congestion_severity: severity,
-        requires_closure: scen.payload.gori > 80,
+        requires_closure: scen.payload.hvi || scen.payload.gori > 80,
         heavy_vehicle_involved: scen.payload.hvi,
         is_rush_hour: scen.payload.rush,
         hotspot_recurrence: scen.payload.gori > 70 ? 4 : 1,
         historical_spread_probability: scen.payload.gori > 70 ? 0.85 : 0.2
       });
       setOperationalPlan(incId, plan);
-      navigate('/planner'); // Jump to planner to see the result
+      // navigate('/planner'); // Jump to planner to see the result
     } catch (e) {
       console.error('Failed to auto-optimize demo scenario', e);
     }
@@ -107,12 +107,12 @@ export const DemoControls: React.FC = () => {
             <button
               key={scen.id}
               onClick={() => handleScenarioRun(scen)}
-              disabled={isRunning && !isCurrent}
+              disabled={isRunning}
               className={`flex flex-col text-left p-3 rounded-lg border transition-all duration-200 select-none ${
                 isCurrent
                   ? 'border-brand-primary bg-brand-primary/10 shadow-md ring-1 ring-brand-primary/30'
                   : 'border-dark-border bg-dark-bg/60 hover:bg-dark-bg/95 hover:border-gray-700'
-              } ${isRunning && !isCurrent ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
+              } ${isRunning ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
             >
               <div className="flex items-center space-x-2 mb-2 border-b border-dark-border pb-2 w-full">
                 <div className={`p-1.5 rounded bg-dark-bg border border-dark-border shrink-0`}>

@@ -43,9 +43,9 @@ export interface OperationalPlan {
     congestion_bypass_pct: number;
   };
   predicted_impact: {
-    BEST_CASE: SimulationResult;
-    EXPECTED_CASE: SimulationResult;
-    WORST_CASE: SimulationResult;
+    best_case: SimulationResult;
+    expected_case: SimulationResult;
+    worst_case: SimulationResult;
   };
   confidence: number;
   recommended_actions: string[];

@@ -141,3 +141,12 @@ Desktop.ini
 # Misc
 # =========================
 .docker-compose*
+/*.md
+!/README.md
+
+
+# =========================
+# Project Artifacts
+submission.txt
+Second_Round_overview.txt
+/scripts/

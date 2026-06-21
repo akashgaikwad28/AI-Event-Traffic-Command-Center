@@ -56,7 +56,7 @@ class ResourceOptimizationEngine:
 
         # 4. Graph Rerouting
         diversion_plan = self.diversion.generate_diversion_plan(
-            "North_Arterial", request.gori_score
+            "North_Arterial", request.gori_score, request.latitude, request.longitude
         )  # Mock corridor
 
         # 5. Playbook Engine

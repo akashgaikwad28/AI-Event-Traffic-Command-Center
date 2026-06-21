@@ -42,6 +42,7 @@ class IngestionSimulator:
             "is_rush_hour": payload.get("rush", True),
             "latitude": payload.get("lat"),
             "longitude": payload.get("lng"),
+            "gori_score": payload.get("gori", 85),
         }
         await stream_engine.process_event(event)
 
@@ -56,6 +57,7 @@ class IngestionSimulator:
                 "heavy_vehicle": payload.get("hvi", False),
                 "latitude": base_lat + (random.uniform(-0.005, 0.005)),
                 "longitude": base_lng + (random.uniform(-0.005, 0.005)),
+                "gori_score": payload.get("gori", 65),
             }
             await stream_engine.process_event(event)
             await asyncio.sleep(0.5)
@@ -67,6 +69,7 @@ class IngestionSimulator:
             "heavy_vehicle": False,
             "latitude": payload.get("lat"),
             "longitude": payload.get("lng"),
+            "gori_score": payload.get("gori", 25),
         }
         await stream_engine.process_event(event)
 

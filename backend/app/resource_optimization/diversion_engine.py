@@ -29,7 +29,7 @@ class DiversionEngine:
         self.G.add_edge("West_Bypass", "South_Expressway", weight=30, capacity=150)
 
     def generate_diversion_plan(
-        self, incident_corridor: str, gori_score: float
+        self, incident_corridor: str, gori_score: float, lat: float, lng: float
     ) -> dict[str, Any]:
         """
         Dynamically finds the best alternate route by penalizing or completely removing the blocked corridor.
@@ -65,11 +65,23 @@ class DiversionEngine:
             else:
                 path_str = "West_Bypass"  # Universal fallback
 
+            # Dynamically calculate bypass percentage based on severity
+            bypass_pct = max(30.0, 95.0 - (gori_score * 0.4))
+
+            # Generate dynamic diversion polyline points around the actual incident
+            # This ensures the dashed line physically renders on the Bangalore map
+            points = [
+                [lat, lng],
+                [lat + 0.005, lng + 0.005],
+                [lat + 0.002, lng + 0.012],
+                [lat - 0.004, lng + 0.015],
+            ]
+
             return {
                 "route_id": f"DIV-{incident_corridor[:3].upper()}",
                 "description": f"Divert traffic via {path_str}",
-                "points": [[40.712, -74.006], [40.713, -74.005], [40.714, -74.004]],
-                "congestion_bypass_pct": 85.5,
+                "points": points,
+                "congestion_bypass_pct": round(bypass_pct, 1),
                 "requires_diversion": True,
             }
 

@@ -180,8 +180,8 @@ export const IncidentDetailsDrawer: React.FC = () => {
 
                 <div className="space-y-2">
                   {Object.entries(plan.predicted_impact || {}).map(([scenario, data]) => {
-                    const isWorst = scenario === 'WORST_CASE';
-                    const isBest = scenario === 'BEST_CASE';
+                    const isWorst = scenario === 'worst_case';
+                    const isBest = scenario === 'best_case';
                     const labelColor = isWorst ? 'text-red-400' : (isBest ? 'text-emerald-400' : 'text-amber-400');
                     const bgClass = isWorst ? 'bg-red-500/5 border-red-500/20' : (isBest ? 'bg-emerald-500/5 border-emerald-500/20' : 'bg-amber-500/5 border-amber-500/20');
 

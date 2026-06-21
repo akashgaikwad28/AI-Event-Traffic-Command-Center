@@ -82,8 +82,9 @@ class WebSocketService {
         const incidentStore = useIncidentStore.getState();
         incidentStore.addIncident(data.payload);
 
-        // Also update GORI since incidents changed
-        useGoriStore.getState().updateGoriFromIncidents(incidentStore.incidents);
+        // Also update GORI since incidents changed (construct next state manually to avoid Zustand async race condition)
+        const nextIncidents = { ...incidentStore.incidents, [data.payload.incident_id]: data.payload };
+        useGoriStore.getState().updateGoriFromIncidents(nextIncidents);
       }
     } else if (topic === 'gori_alerts') {
       useAnalyticsStore.getState().addAlert(data);
