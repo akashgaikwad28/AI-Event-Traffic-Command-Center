@@ -1,5 +1,16 @@
 # Data Pipeline Architecture
 
+```mermaid
+flowchart TD
+    A([Raw Incident Data]) --> B[DataLoader\nIngestion]
+    B --> C[DataCleaner\nPreprocessing]
+    C --> D{Missing Coordinates?}
+    D -- Yes --> E[Drop Record]
+    D -- No --> F[SpatialReconstructor\nDBSCAN Clustering]
+    F --> G[FeatureGenerator\nFeature Engineering]
+    G --> H[(Processed Parquet Dataset)]
+```
+
 The data pipeline is responsible for ingesting, cleaning, and transforming raw incident data into an AI-ready dataset. It is organized into several modules within the `data_pipeline/` directory.
 
 ## 1. Data Ingestion (`data_pipeline/ingestion/data_loader.py`)

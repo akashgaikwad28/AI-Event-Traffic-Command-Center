@@ -3,8 +3,19 @@
 ## Overview
 This document outlines the Machine Learning pipeline architecture for Gridwise AI.
 
+```mermaid
+flowchart LR
+    A[(Parquet Dataset)] --> B[Training Module\nXGBoost/RF]
+    B --> C{Validation}
+    C -- Pass --> D[Export .pkl]
+    C -- Fail --> E[Hyperparameter Tuning]
+    D --> F[Model Registry\nStaging/Prod]
+    F --> G[CongestionModel\nInference Wrapper]
+    G --> H[GORI Decision Engine]
+```
+
 ## Current Implementation Status
-A comprehensive review of the `backend/app/ai/` and `mlops/` directories reveals that **there is currently no explicitly defined model training code using algorithms like XGBoost, Random Forest, or scikit-learn in the repository**. 
+A comprehensive review of the `backend/app/ai/` and `mlops/` directories reveals that **there is currently no explicitly defined model training code using algorithms like XGBoost, Random Forest, or scikit-learn in the repository**.
 
 Instead, the codebase focuses entirely on the **inference and model management layers**:
 - **Inference Wrapper**: `backend/app/ai/models/congestion_model.py` implements a `CongestionModel` class that wraps a pre-trained model. It dynamically interacts with any generic model object that exposes a `predict()` method.
