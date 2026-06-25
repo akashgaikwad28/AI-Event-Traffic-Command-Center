@@ -1,10 +1,23 @@
+import time
+from datetime import UTC, datetime
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel
 
+from backend.app.learning import prediction_store
+from backend.app.learning.contracts.learning_contracts import (
+    PredictionRecordDTO,
+)
+from backend.app.observability.logging.structured_logger import (
+    get_structured_logger,
+)
 from backend.app.resource_optimization.contracts.optimization_contracts import (
     OperationalPlanDTO,
     OptimizationRequestDTO,
+)
+from backend.app.resource_optimization.logging.optimization_logger import (
+    optimization_logger,
 )
 from backend.app.resource_optimization.resource_engine import ResourceOptimizationEngine
 
@@ -14,15 +27,6 @@ router = APIRouter()
 # Dependency
 def get_resource_engine() -> ResourceOptimizationEngine:
     return ResourceOptimizationEngine()
-
-
-import time
-
-from pydantic import BaseModel
-
-from backend.app.resource_optimization.logging.optimization_logger import (
-    optimization_logger,
-)
 
 
 @router.post("/incident-response", response_model=OperationalPlanDTO)
@@ -37,10 +41,6 @@ async def generate_incident_response(
     start_time = time.perf_counter()
     incident_id = request.dict().get("incident_id", "unknown")
     try:
-        from backend.app.observability.logging.structured_logger import (
-            get_structured_logger,
-        )
-
         debug_logger = get_structured_logger("optimization_debug")
         debug_logger.info("incident_payload_received", incident=request.dict())
 
@@ -96,8 +96,32 @@ async def generate_incident_response(
         if diversion_count > 0:
             optimization_logger.diversion_strategy_generated(diversion_count)
 
+        # Post-Event Learning Loop (Gap 2): capture the prediction so it can be
+        # compared against the actual clearance time once the incident resolves.
+        try:
+            expected_clearance = (
+                expected_case.get("estimated_clearance_minutes", 45)
+                if isinstance(expected_case, dict)
+                else 45
+            )
+            prediction_store.record_prediction(
+                PredictionRecordDTO(
+                    incident_id=incident_id,
+                    gori_score=request.gori_score,
+                    predicted_clearance_mins=float(expected_clearance),
+                    deployment_class=plan_data.get("operational_risk", "Standard"),
+                    scenario_category=request.scenario_category,
+                    scenario_subtype=request.scenario_subtype,
+                    predicted_at=datetime.now(UTC),
+                )
+            )
+        except Exception as learn_err:  # Learning loop must never break dispatch
+            debug_logger.warning("learning_capture_failed", error=str(learn_err))
+
         optimization_logger.optimization_completed(incident_id, latency_ms)
         return plan
     except Exception as e:
         optimization_logger.optimization_failed(incident_id, str(e))
-        raise HTTPException(status_code=500, detail=f"Optimization failure: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Optimization failure: {str(e)}"
+        ) from e

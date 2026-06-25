@@ -25,6 +25,10 @@ class OptimizationRequestDTO(BaseModel):
     is_rush_hour: bool
     hotspot_recurrence: float
     historical_spread_probability: float
+    # Optional taxonomy metadata (PLANNED / UNPLANNED + subtype). Passed through
+    # by the demo panel so the Post-Event Learning loop can split accuracy.
+    scenario_category: str | None = None
+    scenario_subtype: str | None = None
 
 
 class SimulationResultDTO(BaseModel):

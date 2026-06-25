@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import { api } from '../services/api';
 import { TrendingUp, Clock, AlertTriangle } from 'lucide-react';
+import { PostEventLearningPanel } from '../components/learning/PostEventLearningPanel';
 
 export const AnalyticsPage: React.FC = () => {
   const [metrics, setMetrics] = useState<any>(null);
@@ -122,6 +123,9 @@ export const AnalyticsPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Post-Event Learning Loop (Gap 2) */}
+      <PostEventLearningPanel />
     </div>
   );
 };

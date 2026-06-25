@@ -12,6 +12,9 @@ export interface OptimizationRequest {
   is_rush_hour: boolean;
   hotspot_recurrence: number;
   historical_spread_probability: number;
+  /** Optional taxonomy metadata consumed by the Post-Event Learning loop. */
+  scenario_category?: string;
+  scenario_subtype?: string;
 }
 
 export interface SimulationResult {
